@@ -4,6 +4,8 @@
     "jsr:@std/assert@1": "1.0.13",
     "jsr:@std/internal@^1.0.6": "1.0.8",
     "npm:@tailwindcss/vite@^4.1.11": "4.1.11_vite@7.0.1__picomatch@4.0.2",
+    "npm:@tanstack/react-query-devtools@^5.81.5": "5.81.5_@tanstack+react-query@5.81.5__react@19.1.0_react@19.1.0",
+    "npm:@tanstack/react-query@^5.81.5": "5.81.5_react@19.1.0",
     "npm:@tanstack/react-router-devtools@^1.124.0": "1.124.0_@tanstack+react-router@1.124.0__react@19.1.0__react-dom@19.1.0___react@19.1.0_react@19.1.0_react-dom@19.1.0__react@19.1.0",
     "npm:@tanstack/react-router@^1.124.0": "1.124.0_react@19.1.0_react-dom@19.1.0__react@19.1.0",
     "npm:@tanstack/router-plugin@^1.124.0": "1.124.0_@tanstack+react-router@1.124.0__react@19.1.0__react-dom@19.1.0___react@19.1.0_vite@7.0.1__picomatch@4.0.2_@babel+core@7.28.0_react@19.1.0_react-dom@19.1.0__react@19.1.0",
@@ -728,6 +730,27 @@
     },
     "@tanstack/history@1.121.34": {
       "integrity": "sha512-YL8dGi5ZU+xvtav2boRlw4zrRghkY6hvdcmHhA0RGSJ/CBgzv+cbADW9eYJLx74XMZvIQ1pp6VMbrpXnnM5gHA=="
+    },
+    "@tanstack/query-core@5.81.5": {
+      "integrity": "sha512-ZJOgCy/z2qpZXWaj/oxvodDx07XcQa9BF92c0oINjHkoqUPsmm3uG08HpTaviviZ/N9eP1f9CM7mKSEkIo7O1Q=="
+    },
+    "@tanstack/query-devtools@5.81.2": {
+      "integrity": "sha512-jCeJcDCwKfoyyBXjXe9+Lo8aTkavygHHsUHAlxQKKaDeyT0qyQNLKl7+UyqYH2dDF6UN/14873IPBHchcsU+Zg=="
+    },
+    "@tanstack/react-query-devtools@5.81.5_@tanstack+react-query@5.81.5__react@19.1.0_react@19.1.0": {
+      "integrity": "sha512-lCGMu4RX0uGnlrlLeSckBfnW/UV+KMlTBVqa97cwK7Z2ED5JKnZRSjNXwoma6sQBTJrcULvzgx2K6jEPvNUpDw==",
+      "dependencies": [
+        "@tanstack/query-devtools",
+        "@tanstack/react-query",
+        "react"
+      ]
+    },
+    "@tanstack/react-query@5.81.5_react@19.1.0": {
+      "integrity": "sha512-lOf2KqRRiYWpQT86eeeftAGnjuTR35myTP8MXyvHa81VlomoAWNEd8x5vkcAfQefu0qtYCvyqLropFZqgI2EQw==",
+      "dependencies": [
+        "@tanstack/query-core",
+        "react"
+      ]
     },
     "@tanstack/react-router-devtools@1.124.0_@tanstack+react-router@1.124.0__react@19.1.0__react-dom@19.1.0___react@19.1.0_react@19.1.0_react-dom@19.1.0__react@19.1.0": {
       "integrity": "sha512-CpOUUvtOYfLQEQS/ikGL9FQgEgYzBOKq9/2LqqFDXhZZgCVW18rBvR3LZeejkYSHAWlRphG33sdXCYVRM02sZQ==",
@@ -1650,6 +1673,8 @@
     "dependencies": [
       "jsr:@std/assert@1",
       "npm:@tailwindcss/vite@^4.1.11",
+      "npm:@tanstack/react-query-devtools@^5.81.5",
+      "npm:@tanstack/react-query@^5.81.5",
       "npm:@tanstack/react-router-devtools@^1.124.0",
       "npm:@tanstack/react-router@^1.124.0",
       "npm:@tanstack/router-plugin@^1.124.0",
