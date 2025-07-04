@@ -5,12 +5,13 @@
     "preview": "vite preview"
   },
   "compilerOptions": {
+    "types": ["react", "react-dom", "@types/react"],
     "jsx": "react-jsx",
     "jsxImportSource": "react",
     "lib": ["dom", "dom.iterable", "dom.asynciterable", "deno.ns"]
   },
   "lint": {
-    "exclude": ["src/routeTree.gen.ts"]
+    "exclude": ["**/*.gen.ts"]
   },
   "nodeModulesDir": "auto",
   "imports": {
