@@ -10,6 +10,7 @@ export default defineConfig({
     router({
       target: "react",
       autoCodeSplitting: true,
+      addExtensions: true,
     }),
     react(),
     tailwindcss(),
