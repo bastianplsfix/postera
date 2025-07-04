@@ -14,6 +14,7 @@
   },
   "nodeModulesDir": "auto",
   "imports": {
+    "~/": "./src/",
     "@std/assert": "jsr:@std/assert@1",
     "@tailwindcss/vite": "npm:@tailwindcss/vite@^4.1.11",
     "@tanstack/react-query": "npm:@tanstack/react-query@^5.81.5",
