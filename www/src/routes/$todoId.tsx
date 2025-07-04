@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
+import { getOneTodoQueryOptions } from "~/integrations/query/todos.tsx";
 
 export const Route = createFileRoute("/$todoId")({
   component: RouteComponent,
@@ -8,14 +9,7 @@ export const Route = createFileRoute("/$todoId")({
 function RouteComponent() {
   const { todoId } = Route.useParams();
 
-  const { data, isPending, isError } = useQuery({
-    queryKey: ["todo", todoId],
-    queryFn: async () => {
-      const response = await fetch(`/todos/${todoId}`);
-      if (!response.ok) throw new Error("Failed to fetch todo");
-      return response.json();
-    },
-  });
+  const { data, isPending, isError } = useQuery(getOneTodoQueryOptions(todoId));
 
   if (isPending) return null;
   if (isError) return null;

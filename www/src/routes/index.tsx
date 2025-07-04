@@ -1,18 +1,17 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
-import { Todo } from "~/tests/mocks/handlers.ts";
+
 import { Link } from "@tanstack/react-router";
+import { getAllTodosQueryOptions } from "~/integrations/query/todos.tsx";
 
 export const Route = createFileRoute("/")({
   component: RouteComponent,
 });
 
 function RouteComponent() {
-  const { data, isPending, isError } = useQuery<Todo[]>({
-    queryKey: ["todos", "list"],
-    queryFn: () =>
-      fetch("/todos", { method: "GET" }).then((data) => data.json()),
-  });
+  const { data, isPending, isError } = useQuery(
+    getAllTodosQueryOptions(),
+  );
 
   if (isPending) return null;
   if (isError) return null;
