@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { Todo } from "~/tests/mocks/handlers.ts";
+import { Link } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/")({
   component: RouteComponent,
@@ -8,7 +9,7 @@ export const Route = createFileRoute("/")({
 
 function RouteComponent() {
   const { data, isPending, isError } = useQuery<Todo[]>({
-    queryKey: ["todos"],
+    queryKey: ["todos", "list"],
     queryFn: () =>
       fetch("/todos", { method: "GET" }).then((data) => data.json()),
   });
@@ -19,7 +20,11 @@ function RouteComponent() {
   return (
     <div>
       {data.map((todo) => {
-        return <div key={todo.id}>{todo.title}</div>;
+        return (
+          <Link to="/$todoId" params={{ todoId: todo.id }}>
+            <div key={todo.id}>{todo.title}</div>
+          </Link>
+        );
       })}
     </div>
   );
