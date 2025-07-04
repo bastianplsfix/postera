@@ -3,6 +3,7 @@
   "specifiers": {
     "jsr:@std/assert@1": "1.0.13",
     "jsr:@std/internal@^1.0.6": "1.0.8",
+    "npm:@deno/vite-plugin@^1.0.5": "1.0.5_vite@7.0.1__picomatch@4.0.2",
     "npm:@tailwindcss/vite@^4.1.11": "4.1.11_vite@7.0.1__picomatch@4.0.2",
     "npm:@tanstack/react-query-devtools@^5.81.5": "5.81.5_@tanstack+react-query@5.81.5__react@19.1.0_react@19.1.0",
     "npm:@tanstack/react-query@^5.81.5": "5.81.5_react@19.1.0",
@@ -285,6 +286,12 @@
       "dependencies": [
         "@types/tough-cookie",
         "tough-cookie"
+      ]
+    },
+    "@deno/vite-plugin@1.0.5_vite@7.0.1__picomatch@4.0.2": {
+      "integrity": "sha512-tLja5n4dyMhcze1NzvSs2iiriBymfBlDCZIrjMTxb9O2ru0gvmV6mn5oBD2teNw5Sd92cj3YJzKwsAs8tMJXlg==",
+      "dependencies": [
+        "vite"
       ]
     },
     "@emnapi/core@1.4.3": {
@@ -1672,6 +1679,7 @@
   "workspace": {
     "dependencies": [
       "jsr:@std/assert@1",
+      "npm:@deno/vite-plugin@^1.0.5",
       "npm:@tailwindcss/vite@^4.1.11",
       "npm:@tanstack/react-query-devtools@^5.81.5",
       "npm:@tanstack/react-query@^5.81.5",

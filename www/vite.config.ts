@@ -3,6 +3,7 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import { tanstackRouter as router } from "@tanstack/router-plugin/vite";
+import deno from "@deno/vite-plugin";
 
 export default defineConfig({
   plugins: [
@@ -12,10 +13,6 @@ export default defineConfig({
     }),
     react(),
     tailwindcss(),
+    deno(),
   ],
-  resolve: {
-    alias: {
-      "~": "./src",
-    },
-  },
 });
