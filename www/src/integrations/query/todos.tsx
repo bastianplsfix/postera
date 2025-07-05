@@ -63,6 +63,31 @@ export const useCreateTodoMutation = () => {
   });
 };
 
+export const useUpdateTodoMutation = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (
+      { todoId, updates }: { todoId: string; updates: Partial<Todo> },
+    ): Promise<Todo> => {
+      const response = await fetch(`/todos/${todoId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updates),
+      });
+
+      if (!response.ok) throw new Error("Failed to update todo");
+      return response.json();
+    },
+    onSuccess: () => {
+      // Invalidate and refetch todos list
+      queryClient.invalidateQueries({ queryKey: queryKeys.getAllTodos() });
+    },
+  });
+};
+
 export const useDeleteTodoMutation = () => {
   const queryClient = useQueryClient();
 
