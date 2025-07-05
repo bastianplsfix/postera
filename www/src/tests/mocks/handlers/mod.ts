@@ -1,26 +1,6 @@
 import { http, HttpResponse } from "msw";
-import seed from "../seed.json" with { type: "json" };
 import type { Todo, TodoList } from "~/types/mod.ts";
-
-// Fake databases
-const todoListsDB = new Map<string, TodoList>([
-  ["1", {
-    id: "1",
-    name: "Personal",
-    description: "Personal tasks and goals",
-    createdAt: "2024-01-01T00:00:00Z",
-    updatedAt: "2024-01-01T00:00:00Z",
-  }],
-  ["2", {
-    id: "2",
-    name: "Work",
-    description: "Work-related tasks",
-    createdAt: "2024-01-01T00:00:00Z",
-    updatedAt: "2024-01-01T00:00:00Z",
-  }],
-]);
-
-const todosDB = new Map((seed as Todo[]).map((todo) => [todo.id, todo]));
+import { todoListsDB, todosDB } from "../db.ts";
 
 export const handlers = [
   // Todo Lists endpoints
