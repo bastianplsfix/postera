@@ -1,23 +1,6 @@
 import { http, HttpResponse } from "msw";
-import seed from "./seed.json" with { type: "json" };
-
-export type TodoList = {
-  id: string;
-  name: string;
-  description: string;
-  createdAt: string;
-  updatedAt: string;
-};
-
-export type Todo = {
-  id: string;
-  title: string;
-  description: string;
-  completed: boolean;
-  listId: string;
-  createdAt: string;
-  updatedAt: string;
-};
+import seed from "../seed.json" with { type: "json" };
+import type { Todo, TodoList } from "~/types/mod.ts";
 
 // Fake databases
 const todoListsDB = new Map<string, TodoList>([

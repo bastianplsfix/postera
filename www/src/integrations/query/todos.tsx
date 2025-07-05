@@ -3,7 +3,7 @@ import {
   useMutation,
   useQueryClient,
 } from "@tanstack/react-query";
-import { Todo, TodoList } from "~/tests/mocks/handlers.ts";
+import type { Todo, TodoList } from "~/types/mod.ts";
 
 export const queryKeys = {
   all: () => ["todos"],
