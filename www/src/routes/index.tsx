@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useEffect } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
@@ -24,6 +24,10 @@ function RouteComponent() {
     e.preventDefault();
     createTodoMutation.mutate();
   };
+
+  useEffect(() => {
+    console.log("Hello");
+  }, []);
 
   const handleDeleteClick = (todoId: string) => {
     const confirmDelete = globalThis.confirm(
