@@ -43,18 +43,18 @@ function RouteComponent() {
       <div>
         {data.map((todo) => {
           return (
-            <div key={todo.id}>
+            <div key={todo.id} className="flex flex-col">
               <Link to="/$todoId" params={{ todoId: todo.id }}>
                 <div>
                   {todo.title}
                 </div>
-                <button
-                  type="button"
-                  onClick={() => handleDeleteClick(todo.id)}
-                >
-                  X
-                </button>
               </Link>
+              <button
+                type="button"
+                onClick={() => handleDeleteClick(todo.id)}
+              >
+                X
+              </button>
             </div>
           );
         })}
