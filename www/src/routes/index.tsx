@@ -13,7 +13,8 @@ export const Route = createFileRoute("/")({
 });
 
 function RouteComponent() {
-  // const [value, setValue] = useState(0);
+  const [title, setTitle] = React.useState("");
+  const [description, setDescription] = React.useState("");
   const { data, isPending, isError } = useQuery(
     getAllTodosQueryOptions(),
   );
@@ -22,7 +23,11 @@ function RouteComponent() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    createTodoMutation.mutate();
+    if (title.trim() && description.trim()) {
+      createTodoMutation.mutate({ title, description });
+      setTitle("");
+      setDescription("");
+    }
   };
 
   useEffect(() => {
@@ -70,11 +75,25 @@ function RouteComponent() {
             <input
               type="text"
               className="border"
-              // value={value}
-              // onChange={(e) => setValue(e.target.value)}
+              placeholder="Enter todo title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              required
+            />
+            <input
+              type="text"
+              className="border"
+              placeholder="Enter todo description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              required
             />
           </label>
-          <button type="submit" disabled={createTodoMutation.isPending}>
+          <button
+            type="submit"
+            disabled={createTodoMutation.isPending || !title.trim() ||
+              !description.trim()}
+          >
             {createTodoMutation.isPending ? "Creating..." : "Submit"}
           </button>
         </form>

@@ -37,10 +37,11 @@ export const useCreateTodoMutation = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (): Promise<Todo> => {
-      const todoData = {
-        title: "Learn React Query",
-        description: "Master mutations and queries in React Query",
+    mutationFn: async (
+      todoData: { title: string; description: string },
+    ): Promise<Todo> => {
+      const requestData = {
+        ...todoData,
         completed: false,
       };
 
@@ -49,7 +50,7 @@ export const useCreateTodoMutation = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(todoData),
+        body: JSON.stringify(requestData),
       });
 
       if (!response.ok) throw new Error("Failed to create todo");
