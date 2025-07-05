@@ -35,7 +35,7 @@ function RouteComponent() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (title.trim() && description.trim()) {
+    if (title?.trim() && description?.trim()) {
       createTodoMutation.mutate({ title, description, listId });
       setTitle("");
       setDescription("");
@@ -70,7 +70,7 @@ function RouteComponent() {
   };
 
   const handleEditSubmit = (todoId: string) => {
-    if (editTitle.trim() && editDescription.trim()) {
+    if (editTitle?.trim() && editDescription?.trim()) {
       updateTodoMutation.mutate({
         todoId,
         updates: { title: editTitle, description: editDescription },
@@ -95,78 +95,61 @@ function RouteComponent() {
   const totalCount = todos?.length || 0;
 
   return (
-    <div className="p-6 max-w-4xl mx-auto">
-      <div className="mb-8">
-        <div className="flex items-center justify-between mb-4">
-          <div>
-            <h1 className="text-3xl font-bold">{list.name}</h1>
-            <p className="text-gray-600">{list.description}</p>
+    <div>
+      <div className="section">
+        <div className="flex justify-between items-start mb-4">
+          <div className="flex-1">
+            <h1 className="mb-1">{list.name}</h1>
+            <p className="text-gray-600 mb-2">{list.description}</p>
           </div>
           <div className="text-right">
             <div className="text-sm text-gray-500">
               {completedCount} of {totalCount} completed
             </div>
-            {totalCount > 0 && (
-              <div className="w-32 bg-gray-200 rounded-full h-2 mt-1">
-                <div
-                  className="bg-green-500 h-2 rounded-full"
-                  style={{
-                    width: `${
-                      totalCount > 0 ? (completedCount / totalCount) * 100 : 0
-                    }%`,
-                  }}
-                />
-              </div>
-            )}
           </div>
         </div>
-        <div className="flex gap-4">
-          <Link to="/lists" className="text-blue-500 hover:text-blue-700">
-            ← Back to Lists
-          </Link>
-          <Link to="/" className="text-blue-500 hover:text-blue-700">
-            All Todos
-          </Link>
+        <div className="nav-links">
+          <Link to="/lists">← Back to Lists</Link>
+          <Link to="/">All Todos</Link>
         </div>
       </div>
 
-      <div className="space-y-4 mb-8">
+      <div className="section">
         {todos?.map((todo) => {
           return (
             <div
               key={todo.id}
-              className="border rounded-lg p-4 shadow-sm bg-white"
+              className="card"
             >
               {editingTodo === todo.id
                 ? (
-                  <div className="flex flex-col gap-2">
+                  <div>
                     <input
                       type="text"
-                      className="border rounded px-3 py-2"
                       value={editTitle}
                       onChange={(e) => setEditTitle(e.target.value)}
                       placeholder="Todo title"
+                      className="mb-2"
                     />
                     <textarea
-                      className="border rounded px-3 py-2"
                       value={editDescription}
                       onChange={(e) => setEditDescription(e.target.value)}
                       placeholder="Todo description"
                       rows={2}
+                      className="mb-2"
                     />
-                    <div className="flex gap-2">
+                    <div className="button-group">
                       <button
                         type="button"
                         onClick={() => handleEditSubmit(todo.id)}
-                        disabled={!editTitle.trim() || !editDescription.trim()}
-                        className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 disabled:opacity-50"
+                        disabled={!editTitle?.trim() ||
+                          !editDescription?.trim()}
                       >
                         Save
                       </button>
                       <button
                         type="button"
                         onClick={handleCancelEdit}
-                        className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
                       >
                         Cancel
                       </button>
@@ -179,28 +162,23 @@ function RouteComponent() {
                       <Link
                         to="/$todoId"
                         params={{ todoId: todo.id }}
-                        className="block hover:bg-gray-50 p-2 rounded -m-2"
+                        className="block hover:underline"
                       >
                         <div
-                          className={`${
-                            todo.completed ? "line-through text-gray-500" : ""
-                          }`}
+                          className={todo.completed ? "completed" : ""}
                         >
-                          <h3 className="font-bold text-lg">{todo.title}</h3>
-                          <p className="text-gray-600">{todo.description}</p>
+                          <h3 className="mb-1">{todo.title}</h3>
+                          <p className="text-gray-600 text-sm">
+                            {todo.description}
+                          </p>
                         </div>
                       </Link>
                     </div>
-                    <div className="flex gap-2 ml-4">
+                    <div className="button-group ml-4">
                       <button
                         type="button"
                         onClick={() =>
                           handleCompleteToggle(todo.id, todo.completed)}
-                        className={`px-3 py-1 rounded text-white ${
-                          todo.completed
-                            ? "bg-yellow-500 hover:bg-yellow-600"
-                            : "bg-green-500 hover:bg-green-600"
-                        }`}
                       >
                         {todo.completed ? "Undo" : "Complete"}
                       </button>
@@ -212,14 +190,12 @@ function RouteComponent() {
                             todo.title,
                             todo.description,
                           )}
-                        className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
                       >
                         Edit
                       </button>
                       <button
                         type="button"
                         onClick={() => handleDeleteClick(todo.id)}
-                        className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
                       >
                         Delete
                       </button>
@@ -231,58 +207,49 @@ function RouteComponent() {
         })}
 
         {todos?.length === 0 && (
-          <div className="text-center py-8 text-gray-500">
-            No todos in this list yet. Create your first todo below!
+          <div className="card text-center">
+            <div className="text-gray-500">
+              No todos in this list yet. Create your first todo below!
+            </div>
           </div>
         )}
       </div>
 
-      <div className="bg-gray-50 p-6 rounded-lg">
-        <h2 className="text-xl font-bold mb-4">Add New Todo</h2>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label
-              htmlFor="title"
-              className="block text-sm font-medium text-gray-700 mb-1"
+      <div className="section">
+        <div className="card">
+          <h2>Add New Todo</h2>
+          <form onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label htmlFor="title">Title</label>
+              <input
+                id="title"
+                type="text"
+                placeholder="Enter todo title"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="description">Description</label>
+              <textarea
+                id="description"
+                placeholder="Enter todo description"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                rows={3}
+                required
+              />
+            </div>
+            <button
+              type="submit"
+              disabled={createTodoMutation.isPending || !title?.trim() ||
+                !description?.trim()}
             >
-              Title
-            </label>
-            <input
-              id="title"
-              type="text"
-              className="w-full border rounded px-3 py-2"
-              placeholder="Enter todo title"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              required
-            />
-          </div>
-          <div>
-            <label
-              htmlFor="description"
-              className="block text-sm font-medium text-gray-700 mb-1"
-            >
-              Description
-            </label>
-            <textarea
-              id="description"
-              className="w-full border rounded px-3 py-2"
-              placeholder="Enter todo description"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              rows={3}
-              required
-            />
-          </div>
-          <button
-            type="submit"
-            disabled={createTodoMutation.isPending || !title.trim() ||
-              !description.trim()}
-            className="bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600 disabled:opacity-50"
-          >
-            {createTodoMutation.isPending ? "Creating..." : "Add Todo"}
-          </button>
-        </form>
+              {createTodoMutation.isPending ? "Creating..." : "Add Todo"}
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );
