@@ -1,124 +1,124 @@
 {
-  "todoLists": [
-    {
-      "id": "1",
-      "name": "Personal",
-      "description": "Personal tasks and goals",
-      "createdAt": "2024-01-01T00:00:00Z",
-      "updatedAt": "2024-01-01T00:00:00Z"
-    },
-    {
-      "id": "2",
-      "name": "Work",
-      "description": "Work-related tasks",
-      "createdAt": "2024-01-01T00:00:00Z",
-      "updatedAt": "2024-01-01T00:00:00Z"
-    },
-    {
-      "id": "3",
-      "name": "Shopping",
-      "description": "Grocery and household items",
-      "createdAt": "2024-01-02T08:00:00Z",
-      "updatedAt": "2024-01-02T08:00:00Z"
-    },
-    {
-      "id": "4",
-      "name": "Learning",
-      "description": "Educational and skill development tasks",
-      "createdAt": "2024-01-03T12:00:00Z",
-      "updatedAt": "2024-01-03T12:00:00Z"
-    }
-  ],
-  "todos": [
-    {
-      "id": "1",
-      "title": "Learn TypeScript",
-      "description": "Study TypeScript fundamentals and advanced concepts",
-      "completed": false,
-      "listId": "1",
-      "createdAt": "2024-01-15T10:00:00Z",
-      "updatedAt": "2024-01-15T10:00:00Z"
-    },
-    {
-      "id": "2",
-      "title": "Build React App",
-      "description": "Create a todo application using React and TypeScript",
-      "completed": true,
-      "listId": "2",
-      "createdAt": "2024-01-10T09:00:00Z",
-      "updatedAt": "2024-01-14T15:30:00Z"
-    },
-    {
-      "id": "3",
-      "title": "Write Tests",
-      "description": "Add comprehensive tests for the todo application",
-      "completed": false,
-      "listId": "1",
-      "createdAt": "2024-01-16T14:00:00Z",
-      "updatedAt": "2024-01-16T14:00:00Z"
-    },
-    {
-      "id": "4",
-      "title": "Deploy to Production",
-      "description": "Set up CI/CD pipeline and deploy the application",
-      "completed": false,
-      "listId": "2",
-      "createdAt": "2024-01-17T11:00:00Z",
-      "updatedAt": "2024-01-17T11:00:00Z"
-    },
-    {
-      "id": "5",
-      "title": "Buy Groceries",
-      "description": "Milk, bread, eggs, fruits, vegetables",
-      "completed": false,
-      "listId": "3",
-      "createdAt": "2024-01-18T07:00:00Z",
-      "updatedAt": "2024-01-18T07:00:00Z"
-    },
-    {
-      "id": "6",
-      "title": "Clean House",
-      "description": "Vacuum, dust, organize living spaces",
-      "completed": true,
-      "listId": "3",
-      "createdAt": "2024-01-16T16:00:00Z",
-      "updatedAt": "2024-01-17T20:00:00Z"
-    },
-    {
-      "id": "7",
-      "title": "Complete JavaScript Course",
-      "description": "Finish the advanced JavaScript course on online platform",
-      "completed": false,
-      "listId": "4",
-      "createdAt": "2024-01-12T13:00:00Z",
-      "updatedAt": "2024-01-12T13:00:00Z"
-    },
-    {
-      "id": "8",
-      "title": "Practice Algorithm Problems",
-      "description": "Solve 5 coding challenges on LeetCode",
-      "completed": false,
-      "listId": "4",
-      "createdAt": "2024-01-19T09:00:00Z",
-      "updatedAt": "2024-01-19T09:00:00Z"
-    },
-    {
-      "id": "9",
-      "title": "Exercise",
-      "description": "30 minutes of cardio and strength training",
-      "completed": true,
-      "listId": "1",
-      "createdAt": "2024-01-18T06:00:00Z",
-      "updatedAt": "2024-01-18T19:00:00Z"
-    },
-    {
-      "id": "10",
-      "title": "Review Code",
-      "description": "Review pull requests from team members",
-      "completed": false,
-      "listId": "2",
-      "createdAt": "2024-01-19T14:00:00Z",
-      "updatedAt": "2024-01-19T14:00:00Z"
-    }
-  ]
+	"todoLists": [
+		{
+			"id": "1",
+			"name": "Personal",
+			"description": "Personal tasks and goals",
+			"createdAt": "2024-01-01T00:00:00Z",
+			"updatedAt": "2024-01-01T00:00:00Z"
+		},
+		{
+			"id": "2",
+			"name": "Work",
+			"description": "Work-related tasks",
+			"createdAt": "2024-01-01T00:00:00Z",
+			"updatedAt": "2024-01-01T00:00:00Z"
+		},
+		{
+			"id": "3",
+			"name": "Shopping",
+			"description": "Grocery and household items",
+			"createdAt": "2024-01-02T08:00:00Z",
+			"updatedAt": "2024-01-02T08:00:00Z"
+		},
+		{
+			"id": "4",
+			"name": "Learning",
+			"description": "Educational and skill development tasks",
+			"createdAt": "2024-01-03T12:00:00Z",
+			"updatedAt": "2024-01-03T12:00:00Z"
+		}
+	],
+	"todos": [
+		{
+			"id": "1",
+			"title": "Learn TypeScript",
+			"description": "Study TypeScript fundamentals and advanced concepts",
+			"completed": false,
+			"listId": "1",
+			"createdAt": "2024-01-15T10:00:00Z",
+			"updatedAt": "2024-01-15T10:00:00Z"
+		},
+		{
+			"id": "2",
+			"title": "Build React App",
+			"description": "Create a todo application using React and TypeScript",
+			"completed": true,
+			"listId": "2",
+			"createdAt": "2024-01-10T09:00:00Z",
+			"updatedAt": "2024-01-14T15:30:00Z"
+		},
+		{
+			"id": "3",
+			"title": "Write Tests",
+			"description": "Add comprehensive tests for the todo application",
+			"completed": false,
+			"listId": "1",
+			"createdAt": "2024-01-16T14:00:00Z",
+			"updatedAt": "2024-01-16T14:00:00Z"
+		},
+		{
+			"id": "4",
+			"title": "Deploy to Production",
+			"description": "Set up CI/CD pipeline and deploy the application",
+			"completed": false,
+			"listId": "2",
+			"createdAt": "2024-01-17T11:00:00Z",
+			"updatedAt": "2024-01-17T11:00:00Z"
+		},
+		{
+			"id": "5",
+			"title": "Buy Groceries",
+			"description": "Milk, bread, eggs, fruits, vegetables",
+			"completed": false,
+			"listId": "3",
+			"createdAt": "2024-01-18T07:00:00Z",
+			"updatedAt": "2024-01-18T07:00:00Z"
+		},
+		{
+			"id": "6",
+			"title": "Clean House",
+			"description": "Vacuum, dust, organize living spaces",
+			"completed": true,
+			"listId": "3",
+			"createdAt": "2024-01-16T16:00:00Z",
+			"updatedAt": "2024-01-17T20:00:00Z"
+		},
+		{
+			"id": "7",
+			"title": "Complete JavaScript Course",
+			"description": "Finish the advanced JavaScript course on online platform",
+			"completed": false,
+			"listId": "4",
+			"createdAt": "2024-01-12T13:00:00Z",
+			"updatedAt": "2024-01-12T13:00:00Z"
+		},
+		{
+			"id": "8",
+			"title": "Practice Algorithm Problems",
+			"description": "Solve 5 coding challenges on LeetCode",
+			"completed": false,
+			"listId": "4",
+			"createdAt": "2024-01-19T09:00:00Z",
+			"updatedAt": "2024-01-19T09:00:00Z"
+		},
+		{
+			"id": "9",
+			"title": "Exercise",
+			"description": "30 minutes of cardio and strength training",
+			"completed": true,
+			"listId": "1",
+			"createdAt": "2024-01-18T06:00:00Z",
+			"updatedAt": "2024-01-18T19:00:00Z"
+		},
+		{
+			"id": "10",
+			"title": "Review Code",
+			"description": "Review pull requests from team members",
+			"completed": false,
+			"listId": "2",
+			"createdAt": "2024-01-19T14:00:00Z",
+			"updatedAt": "2024-01-19T14:00:00Z"
+		}
+	]
 }
