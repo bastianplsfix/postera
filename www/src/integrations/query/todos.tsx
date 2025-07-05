@@ -9,7 +9,7 @@ export const queryKeys = {
   all: () => ["todos"],
   getAllTodos: (listId?: string) => [...queryKeys.all(), "list", { listId }],
   getTodos: (
-    todoId: number | undefined,
+    todoId: string | undefined,
   ) => [...queryKeys.all(), "one", { todoId }],
   lists: () => ["lists"],
   getAllLists: () => [...queryKeys.lists(), "list"],
@@ -29,7 +29,7 @@ export const getAllTodosQueryOptions = (listId?: string) =>
     },
   });
 
-export const getOneTodoQueryOptions = (todoId?: number) =>
+export const getOneTodoQueryOptions = (todoId?: string) =>
   queryOptions({
     queryKey: queryKeys.getTodos(todoId),
     queryFn: async (): Promise<Todo> => {

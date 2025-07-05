@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 
 import {
@@ -151,7 +151,7 @@ function RouteComponent() {
       <div className="section">
         <h1>All Todos</h1>
         <div className="nav-links">
-          <a href="/lists">Manage Lists</a>
+          <Link to="/lists">Manage Lists</Link>
         </div>
       </div>
 
@@ -216,9 +216,13 @@ function RouteComponent() {
                 <div className="mb-6">
                   <div className="flex justify-between items-start">
                     <div className="flex-1">
-                      <a href={`/list/${list.id}`} className="hover:underline">
+                      <Link
+                        to="/list/$listId"
+                        params={{ listId: list.id }}
+                        className="hover:underline"
+                      >
                         <h2 className="mb-1">{list.name}</h2>
-                      </a>
+                      </Link>
                       <p className="text-gray-600 mb-2">{list.description}</p>
                       <div className="text-sm text-gray-500">
                         {stats.total} todo{stats.total !== 1 ? "s" : ""}
@@ -227,9 +231,13 @@ function RouteComponent() {
                         )}
                       </div>
                     </div>
-                    <a href={`/list/${list.id}`} className="text-sm underline">
+                    <Link
+                      to="/list/$listId"
+                      params={{ listId: list.id }}
+                      className="text-sm underline"
+                    >
                       View List →
-                    </a>
+                    </Link>
                   </div>
                 </div>
 
@@ -280,8 +288,9 @@ function RouteComponent() {
                           <div>
                             <div className="flex justify-between items-start">
                               <div className="flex-1">
-                                <a
-                                  href={`/${todo.id}`}
+                                <Link
+                                  to="/$todoId"
+                                  params={{ todoId: todo.id }}
                                   className="block hover:underline"
                                 >
                                   <div
@@ -294,7 +303,7 @@ function RouteComponent() {
                                       {todo.description}
                                     </p>
                                   </div>
-                                </a>
+                                </Link>
                               </div>
                               <div className="button-group ml-4">
                                 <button
@@ -389,9 +398,9 @@ function RouteComponent() {
             <p className="mb-6">
               Create your first list to start organizing your todos.
             </p>
-            <a href="/lists" className="underline">
+            <Link to="/lists" className="underline">
               Create Your First List
-            </a>
+            </Link>
           </div>
         </div>
       )}

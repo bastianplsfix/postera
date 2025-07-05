@@ -17,7 +17,7 @@ function RouteComponent() {
   const [editDescription, setEditDescription] = React.useState("");
 
   const { data, isPending, isError } = useQuery(
-    getOneTodoQueryOptions(Number(todoId)),
+    getOneTodoQueryOptions(todoId),
   );
   const updateTodoMutation = useUpdateTodoMutation();
 
