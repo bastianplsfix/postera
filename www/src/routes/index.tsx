@@ -11,6 +11,15 @@ import {
 	useUpdateTodoMutation,
 } from "~/integrations/query/todos.ts"
 
+import {
+	EmptyState,
+	ErrorMessage,
+	LoadingSpinner,
+	QuickAddForm,
+	TodoForm,
+	TodoItem,
+} from "~/components/mod.ts"
+
 export const Route = createFileRoute("/")({
 	component: RouteComponent,
 })
@@ -144,8 +153,8 @@ function RouteComponent() {
 		return { completed, total }
 	}
 
-	if (isPending) return <div>Loading...</div>
-	if (isError) return <div>Error loading data</div>
+	if (isPending) return <LoadingSpinner />
+	if (isError) return <ErrorMessage message="Error loading data" />
 
 	return (
 		<div>
@@ -158,49 +167,15 @@ function RouteComponent() {
 
 			{/* Quick Add Section */}
 			{lists && lists.length > 0 && (
-				<div className="section">
-					<div className="card">
-						<h2>Quick Add Todo</h2>
-						<p className="text-sm text-gray-600 mb-4">
-							This will be added to "{lists[0].name}" list. For more control,
-							use the individual list sections below.
-						</p>
-						<form onSubmit={handleQuickAddSubmit}>
-							<div className="form-group">
-								<label htmlFor="quickAddTitle">Title</label>
-								<input
-									id="quickAddTitle"
-									type="text"
-									placeholder="Enter todo title"
-									value={quickAddTitle}
-									onChange={(e) => setQuickAddTitle(e.target.value)}
-									required
-								/>
-							</div>
-							<div className="form-group">
-								<label htmlFor="quickAddDescription">Description</label>
-								<textarea
-									id="quickAddDescription"
-									placeholder="Enter todo description"
-									value={quickAddDescription}
-									onChange={(e) => setQuickAddDescription(e.target.value)}
-									rows={3}
-									required
-								/>
-							</div>
-							<button
-								type="submit"
-								disabled={createTodoMutation.isPending ||
-									!quickAddTitle?.trim() ||
-									!quickAddDescription?.trim()}
-							>
-								{createTodoMutation.isPending
-									? "Creating..."
-									: "Quick Add Todo"}
-							</button>
-						</form>
-					</div>
-				</div>
+				<QuickAddForm
+					title={quickAddTitle}
+					description={quickAddDescription}
+					onTitleChange={setQuickAddTitle}
+					onDescriptionChange={setQuickAddDescription}
+					onSubmit={handleQuickAddSubmit}
+					isSubmitting={createTodoMutation.isPending}
+					defaultListName={lists[0].name}
+				/>
 			)}
 
 			{/* Lists and Todos Sections */}
@@ -245,100 +220,20 @@ function RouteComponent() {
 								{/* Todos */}
 								<div className="mb-6">
 									{listTodos.map((todo) => (
-										<div
+										<TodoItem
 											key={todo.id}
-											className="border-b border-gray-100 pb-3 mb-3 last:border-b-0"
-										>
-											{editingTodo === todo.id
-												? (
-													<div>
-														<input
-															type="text"
-															value={editTitle}
-															onChange={(e) => setEditTitle(e.target.value)}
-															placeholder="Todo title"
-															className="mb-2"
-														/>
-														<textarea
-															value={editDescription}
-															onChange={(e) =>
-																setEditDescription(e.target.value)}
-															placeholder="Todo description"
-															rows={2}
-															className="mb-2"
-														/>
-														<div className="button-group">
-															<button
-																type="button"
-																onClick={() => handleEditSubmit(todo.id)}
-																disabled={!editTitle?.trim() ||
-																	!editDescription?.trim()}
-															>
-																Save
-															</button>
-															<button
-																type="button"
-																onClick={handleCancelEdit}
-															>
-																Cancel
-															</button>
-														</div>
-													</div>
-												)
-												: (
-													<div>
-														<div className="flex justify-between items-start">
-															<div className="flex-1">
-																<Link
-																	to="/$todoId"
-																	params={{ todoId: todo.id }}
-																	className="block hover:underline"
-																>
-																	<div
-																		className={todo.completed
-																			? "completed"
-																			: ""}
-																	>
-																		<h3 className="mb-1">{todo.title}</h3>
-																		<p className="text-gray-600 text-sm">
-																			{todo.description}
-																		</p>
-																	</div>
-																</Link>
-															</div>
-															<div className="button-group ml-4">
-																<button
-																	type="button"
-																	onClick={() =>
-																		handleCompleteToggle(
-																			todo.id,
-																			todo.completed,
-																		)}
-																>
-																	{todo.completed ? "Undo" : "Complete"}
-																</button>
-																<button
-																	type="button"
-																	onClick={() =>
-																		handleEditClick(
-																			todo.id,
-																			todo.title,
-																			todo.description,
-																		)}
-																>
-																	Edit
-																</button>
-																<button
-																	type="button"
-																	onClick={() => handleDeleteClick(todo.id)}
-																>
-																	Delete
-																</button>
-															</div>
-														</div>
-													</div>
-												)}
-										</div>
+											todo={todo}
+											onEdit={handleEditClick}
+											onDelete={handleDeleteClick}
+											onToggleComplete={handleCompleteToggle}
+											isEditing={editingTodo === todo.id}
+											editTitle={editTitle}
+											editDescription={editDescription}
+											onEditTitleChange={setEditTitle}
+											onEditDescriptionChange={setEditDescription}
+											onSaveEdit={handleEditSubmit}
+											onCancelEdit={handleCancelEdit}
+										/>
 									))}
 
 									{listTodos.length === 0 && (
@@ -350,41 +245,20 @@ function RouteComponent() {
 
 								{/* Add Todo Form for this List */}
 								<div className="border-t border-gray-100 pt-4">
-									<h3>Add Todo to {list.name}</h3>
-									<form onSubmit={(e) => handleListAddSubmit(e, list.id)}>
-										<div className="form-group">
-											<input
-												type="text"
-												placeholder="Enter todo title"
-												value={listInput.title}
-												onChange={(e) =>
-													updateListInput(list.id, "title", e.target.value)}
-												required
-											/>
-										</div>
-										<div className="form-group">
-											<textarea
-												placeholder="Enter todo description"
-												value={listInput.description}
-												onChange={(e) =>
-													updateListInput(
-														list.id,
-														"description",
-														e.target.value,
-													)}
-												rows={2}
-												required
-											/>
-										</div>
-										<button
-											type="submit"
-											disabled={createTodoMutation.isPending ||
-												!listInput.title?.trim() ||
-												!listInput.description?.trim()}
-										>
-											{createTodoMutation.isPending ? "Adding..." : "Add Todo"}
-										</button>
-									</form>
+									<TodoForm
+										title={listInput.title}
+										description={listInput.description}
+										onTitleChange={(value) =>
+											updateListInput(list.id, "title", value)}
+										onDescriptionChange={(value) =>
+											updateListInput(list.id, "description", value)}
+										onSubmit={(e) => handleListAddSubmit(e, list.id)}
+										isSubmitting={createTodoMutation.isPending}
+										submitButtonText="Add Todo"
+										formTitle={`Add Todo to ${list.name}`}
+										showLabels={false}
+										descriptionRows={2}
+									/>
 								</div>
 							</div>
 						</div>
@@ -394,15 +268,12 @@ function RouteComponent() {
 
 			{(!lists || lists.length === 0) && (
 				<div className="section">
-					<div className="card text-center">
-						<p className="text-lg mb-4">No lists yet!</p>
-						<p className="mb-6">
-							Create your first list to start organizing your todos.
-						</p>
-						<Link to="/lists" className="underline">
-							Create Your First List
-						</Link>
-					</div>
+					<EmptyState
+						title="No lists yet!"
+						description="Create your first list to start organizing your todos."
+						actionText="Create Your First List"
+						actionLink="/lists"
+					/>
 				</div>
 			)}
 		</div>

@@ -1,7 +1,14 @@
 import React from "react"
 import { createFileRoute, Link } from "@tanstack/react-router"
 import { useQuery } from "@tanstack/react-query"
-import { getOneListQueryOptions } from "~/integrations/query/lists.ts"
+
+import {
+	EmptyState,
+	ErrorMessage,
+	LoadingSpinner,
+	TodoForm,
+	TodoItem,
+} from "~/components/mod.ts"
 
 import {
 	getAllTodosQueryOptions,
@@ -9,6 +16,8 @@ import {
 	useDeleteTodoMutation,
 	useUpdateTodoMutation,
 } from "~/integrations/query/todos.ts"
+
+import { getOneListQueryOptions } from "~/integrations/query/lists.ts"
 
 export const Route = createFileRoute("/list/$listId")({
 	component: RouteComponent,
@@ -88,8 +97,10 @@ function RouteComponent() {
 		setEditDescription("")
 	}
 
-	if (listLoading || todosLoading) return <div>Loading...</div>
-	if (listError || todosError) return <div>Error loading data</div>
+	if (listLoading || todosLoading) return <LoadingSpinner />
+	if (listError || todosError) {
+		return <ErrorMessage message="Error loading data" />
+	}
 	if (!list) return <div>List not found</div>
 
 	const completedCount = todos?.filter((todo) => todo.completed).length || 0
@@ -118,139 +129,44 @@ function RouteComponent() {
 			<div className="section">
 				{todos?.map((todo) => {
 					return (
-						<div
-							key={todo.id}
-							className="card"
-						>
-							{editingTodo === todo.id
-								? (
-									<div>
-										<input
-											type="text"
-											value={editTitle}
-											onChange={(e) => setEditTitle(e.target.value)}
-											placeholder="Todo title"
-											className="mb-2"
-										/>
-										<textarea
-											value={editDescription}
-											onChange={(e) => setEditDescription(e.target.value)}
-											placeholder="Todo description"
-											rows={2}
-											className="mb-2"
-										/>
-										<div className="button-group">
-											<button
-												type="button"
-												onClick={() => handleEditSubmit(todo.id)}
-												disabled={!editTitle?.trim() ||
-													!editDescription?.trim()}
-											>
-												Save
-											</button>
-											<button
-												type="button"
-												onClick={handleCancelEdit}
-											>
-												Cancel
-											</button>
-										</div>
-									</div>
-								)
-								: (
-									<div className="flex justify-between items-start">
-										<div className="flex-1">
-											<Link
-												to="/$todoId"
-												params={{ todoId: todo.id }}
-												className="block hover:underline"
-											>
-												<div
-													className={todo.completed ? "completed" : ""}
-												>
-													<h3 className="mb-1">{todo.title}</h3>
-													<p className="text-gray-600 text-sm">
-														{todo.description}
-													</p>
-												</div>
-											</Link>
-										</div>
-										<div className="button-group ml-4">
-											<button
-												type="button"
-												onClick={() =>
-													handleCompleteToggle(todo.id, todo.completed)}
-											>
-												{todo.completed ? "Undo" : "Complete"}
-											</button>
-											<button
-												type="button"
-												onClick={() =>
-													handleEditClick(
-														todo.id,
-														todo.title,
-														todo.description,
-													)}
-											>
-												Edit
-											</button>
-											<button
-												type="button"
-												onClick={() => handleDeleteClick(todo.id)}
-											>
-												Delete
-											</button>
-										</div>
-									</div>
-								)}
+						<div key={todo.id} className="card">
+							<TodoItem
+								todo={todo}
+								onEdit={handleEditClick}
+								onDelete={handleDeleteClick}
+								onToggleComplete={handleCompleteToggle}
+								isEditing={editingTodo === todo.id}
+								editTitle={editTitle}
+								editDescription={editDescription}
+								onEditTitleChange={setEditTitle}
+								onEditDescriptionChange={setEditDescription}
+								onSaveEdit={handleEditSubmit}
+								onCancelEdit={handleCancelEdit}
+							/>
 						</div>
 					)
 				})}
 
 				{todos?.length === 0 && (
-					<div className="card text-center">
-						<div className="text-gray-500">
-							No todos in this list yet. Create your first todo below!
-						</div>
-					</div>
+					<EmptyState
+						title="No todos in this list yet"
+						description="Create your first todo below!"
+						showIcon={false}
+					/>
 				)}
 			</div>
 
 			<div className="section">
-				<div className="card">
-					<h2>Add New Todo</h2>
-					<form onSubmit={handleSubmit}>
-						<div className="form-group">
-							<label htmlFor="title">Title</label>
-							<input
-								id="title"
-								type="text"
-								placeholder="Enter todo title"
-								value={title}
-								onChange={(e) => setTitle(e.target.value)}
-								required
-							/>
-						</div>
-						<div className="form-group">
-							<label htmlFor="description">Description</label>
-							<textarea
-								id="description"
-								placeholder="Enter todo description"
-								value={description}
-								onChange={(e) => setDescription(e.target.value)}
-								rows={3}
-								required
-							/>
-						</div>
-						<button
-							type="submit"
-							disabled={createTodoMutation.isPending || !title?.trim() ||
-								!description?.trim()}
-						>
-							{createTodoMutation.isPending ? "Creating..." : "Add Todo"}
-						</button>
-					</form>
-				</div>
+				<TodoForm
+					title={title}
+					description={description}
+					onTitleChange={setTitle}
+					onDescriptionChange={setDescription}
+					onSubmit={handleSubmit}
+					isSubmitting={createTodoMutation.isPending}
+					submitButtonText="Add Todo"
+					formTitle="Add New Todo"
+				/>
 			</div>
 		</div>
 	)

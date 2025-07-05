@@ -10,6 +10,13 @@ import {
 
 import { getAllTodosQueryOptions } from "~/integrations/query/todos.ts"
 
+import {
+	ErrorMessage,
+	ListCard,
+	ListForm,
+	LoadingSpinner,
+} from "~/components/mod.ts"
+
 export const Route = createFileRoute("/lists")({
 	component: RouteComponent,
 })
@@ -91,8 +98,8 @@ function RouteComponent() {
 			.length || 0
 	}
 
-	if (listsLoading) return <div>Loading lists...</div>
-	if (listsError) return <div>Error loading lists</div>
+	if (listsLoading) return <LoadingSpinner message="Loading lists..." />
+	if (listsError) return <ErrorMessage message="Error loading lists" />
 
 	return (
 		<div>
@@ -109,116 +116,36 @@ function RouteComponent() {
 					const completedCount = getCompletedCount(list.id)
 
 					return (
-						<div key={list.id} className="card">
-							{editingList === list.id
-								? (
-									<div>
-										<input
-											type="text"
-											value={editName}
-											onChange={(e) => setEditName(e.target.value)}
-											placeholder="List name"
-											className="mb-2"
-										/>
-										<textarea
-											value={editDescription}
-											onChange={(e) => setEditDescription(e.target.value)}
-											placeholder="List description"
-											rows={2}
-											className="mb-2"
-										/>
-										<div className="button-group">
-											<button
-												type="button"
-												onClick={() => handleEditSubmit(list.id)}
-												disabled={!editName?.trim() || !editDescription?.trim()}
-											>
-												Save
-											</button>
-											<button
-												type="button"
-												onClick={handleCancelEdit}
-											>
-												Cancel
-											</button>
-										</div>
-									</div>
-								)
-								: (
-									<div className="flex justify-between items-start">
-										<div className="flex-1">
-											<Link
-												to="/list/$listId"
-												params={{ listId: list.id }}
-												className="block hover:underline"
-											>
-												<h3 className="mb-1">{list.name}</h3>
-												<p className="text-gray-600 mb-2">{list.description}</p>
-												<div className="text-sm text-gray-500">
-													{todoCount} todo{todoCount !== 1 ? "s" : ""}
-													{todoCount > 0 && (
-														<span>• {completedCount} completed</span>
-													)}
-												</div>
-											</Link>
-										</div>
-										<div className="button-group ml-4">
-											<button
-												type="button"
-												onClick={() =>
-													handleEditClick(list.id, list.name, list.description)}
-											>
-												Edit
-											</button>
-											<button
-												type="button"
-												onClick={() => handleDeleteClick(list.id)}
-											>
-												Delete
-											</button>
-										</div>
-									</div>
-								)}
-						</div>
+						<ListCard
+							key={list.id}
+							list={list}
+							stats={{ completed: completedCount, total: todoCount }}
+							onEdit={handleEditClick}
+							onDelete={handleDeleteClick}
+							isEditing={editingList === list.id}
+							editName={editName}
+							editDescription={editDescription}
+							onEditNameChange={setEditName}
+							onEditDescriptionChange={setEditDescription}
+							onSaveEdit={handleEditSubmit}
+							onCancelEdit={handleCancelEdit}
+							showActions
+						/>
 					)
 				})}
 			</div>
 
 			<div className="section">
-				<div className="card">
-					<h2>Create New List</h2>
-					<form onSubmit={handleSubmit}>
-						<div className="form-group">
-							<label htmlFor="name">List Name</label>
-							<input
-								id="name"
-								type="text"
-								placeholder="Enter list name"
-								value={name}
-								onChange={(e) => setName(e.target.value)}
-								required
-							/>
-						</div>
-						<div className="form-group">
-							<label htmlFor="description">Description</label>
-							<textarea
-								id="description"
-								placeholder="Enter list description"
-								value={description}
-								onChange={(e) => setDescription(e.target.value)}
-								rows={3}
-								required
-							/>
-						</div>
-						<button
-							type="submit"
-							disabled={createListMutation.isPending || !name?.trim() ||
-								!description?.trim()}
-						>
-							{createListMutation.isPending ? "Creating..." : "Create List"}
-						</button>
-					</form>
-				</div>
+				<ListForm
+					name={name}
+					description={description}
+					onNameChange={setName}
+					onDescriptionChange={setDescription}
+					onSubmit={handleSubmit}
+					isSubmitting={createListMutation.isPending}
+					submitButtonText="Create List"
+					formTitle="Create New List"
+				/>
 			</div>
 		</div>
 	)

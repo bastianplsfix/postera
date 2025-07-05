@@ -1,37 +1,12 @@
-import { createRootRoute, Link, Outlet } from "@tanstack/react-router"
+import { createRootRoute, Outlet } from "@tanstack/react-router"
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools"
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
+import { Header } from "~/components/Header.tsx"
 
 export const Route = createRootRoute({
 	component: () => (
 		<>
-			<header className="border-b border-gray-200">
-				<div className="container">
-					<div className="flex justify-between items-center py-4">
-						<h1 className="text-xl font-semibold">Todo Lists</h1>
-						<nav className="nav-links">
-							<Link
-								to="/"
-								className="[&.active]:font-semibold"
-							>
-								All Todos
-							</Link>
-							<Link
-								to="/lists"
-								className="[&.active]:font-semibold"
-							>
-								Manage Lists
-							</Link>
-							<Link
-								to="/about"
-								className="[&.active]:font-semibold"
-							>
-								About
-							</Link>
-						</nav>
-					</div>
-				</div>
-			</header>
+			<Header />
 			<main className="container">
 				<Outlet />
 			</main>
