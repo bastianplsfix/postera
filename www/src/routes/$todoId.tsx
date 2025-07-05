@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query"
 import {
 	getOneTodoQueryOptions,
 	useUpdateTodoMutation,
-} from "~/integrations/query/todos.tsx"
+} from "~/integrations/query/todos.ts"
 
 export const Route = createFileRoute("/$todoId")({
 	component: RouteComponent,

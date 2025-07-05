@@ -2,13 +2,14 @@ import React, { useEffect } from "react"
 import { createFileRoute, Link } from "@tanstack/react-router"
 import { useQuery } from "@tanstack/react-query"
 
+import { getAllListsQueryOptions } from "~/integrations/query/lists.ts"
+
 import {
-	getAllListsQueryOptions,
 	getAllTodosQueryOptions,
 	useCreateTodoMutation,
 	useDeleteTodoMutation,
 	useUpdateTodoMutation,
-} from "~/integrations/query/todos.tsx"
+} from "~/integrations/query/todos.ts"
 
 export const Route = createFileRoute("/")({
 	component: RouteComponent,

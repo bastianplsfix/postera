@@ -1,13 +1,14 @@
 import React from "react"
 import { createFileRoute, Link } from "@tanstack/react-router"
 import { useQuery } from "@tanstack/react-query"
+import { getOneListQueryOptions } from "~/integrations/query/lists.ts"
+
 import {
 	getAllTodosQueryOptions,
-	getOneListQueryOptions,
 	useCreateTodoMutation,
 	useDeleteTodoMutation,
 	useUpdateTodoMutation,
-} from "~/integrations/query/todos.tsx"
+} from "~/integrations/query/todos.ts"
 
 export const Route = createFileRoute("/list/$listId")({
 	component: RouteComponent,

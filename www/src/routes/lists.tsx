@@ -3,11 +3,12 @@ import { createFileRoute, Link } from "@tanstack/react-router"
 import { useQuery } from "@tanstack/react-query"
 import {
 	getAllListsQueryOptions,
-	getAllTodosQueryOptions,
 	useCreateListMutation,
 	useDeleteListMutation,
 	useUpdateListMutation,
-} from "~/integrations/query/todos.tsx"
+} from "~/integrations/query/lists.ts"
+
+import { getAllTodosQueryOptions } from "~/integrations/query/todos.ts"
 
 export const Route = createFileRoute("/lists")({
 	component: RouteComponent,
