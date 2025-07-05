@@ -2,21 +2,37 @@ import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
-import { getAllTodosQueryOptions } from "~/integrations/query/todos.tsx";
+import {
+  getAllTodosQueryOptions,
+  useCreateTodoMutation,
+  useDeleteTodoMutation,
+} from "~/integrations/query/todos.tsx";
 
 export const Route = createFileRoute("/")({
   component: RouteComponent,
 });
 
 function RouteComponent() {
-  const [value, setValue] = useState("");
+  // const [value, setValue] = useState(0);
   const { data, isPending, isError } = useQuery(
     getAllTodosQueryOptions(),
   );
+  const createTodoMutation = useCreateTodoMutation();
+  const deleteTodoMutation = useDeleteTodoMutation();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Submitted");
+    createTodoMutation.mutate();
+  };
+
+  const handleDeleteClick = (todoId: string) => {
+    const confirmDelete = globalThis.confirm(
+      "Are you sure you want to delete this todo?",
+    );
+
+    if (confirmDelete) {
+      deleteTodoMutation.mutate(todoId);
+    }
   };
 
   if (isPending) return null;
@@ -27,9 +43,19 @@ function RouteComponent() {
       <div>
         {data.map((todo) => {
           return (
-            <Link to="/$todoId" params={{ todoId: todo.id }}>
-              <div key={todo.id}>{todo.title}</div>
-            </Link>
+            <div key={todo.id}>
+              <Link to="/$todoId" params={{ todoId: todo.id }}>
+                <div>
+                  {todo.title}
+                </div>
+                <button
+                  type="button"
+                  onClick={() => handleDeleteClick(todo.id)}
+                >
+                  X
+                </button>
+              </Link>
+            </div>
           );
         })}
       </div>
@@ -40,12 +66,12 @@ function RouteComponent() {
             <input
               type="text"
               className="border"
-              value={value}
-              onChange={(e) => setValue(e.target.value)}
+              // value={value}
+              // onChange={(e) => setValue(e.target.value)}
             />
           </label>
-          <button type="submit">
-            Submit
+          <button type="submit" disabled={createTodoMutation.isPending}>
+            {createTodoMutation.isPending ? "Creating..." : "Submit"}
           </button>
         </form>
       </div>
