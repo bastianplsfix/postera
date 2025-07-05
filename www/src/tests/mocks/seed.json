@@ -4,6 +4,7 @@
     "title": "Learn TypeScript",
     "description": "Study TypeScript fundamentals and advanced concepts",
     "completed": false,
+    "listId": "1",
     "createdAt": "2024-01-15T10:00:00Z",
     "updatedAt": "2024-01-15T10:00:00Z"
   },
@@ -12,6 +13,7 @@
     "title": "Build React App",
     "description": "Create a todo application using React and TypeScript",
     "completed": true,
+    "listId": "2",
     "createdAt": "2024-01-10T09:00:00Z",
     "updatedAt": "2024-01-14T15:30:00Z"
   },
@@ -20,6 +22,7 @@
     "title": "Write Tests",
     "description": "Add comprehensive tests for the todo application",
     "completed": false,
+    "listId": "1",
     "createdAt": "2024-01-16T14:00:00Z",
     "updatedAt": "2024-01-16T14:00:00Z"
   },
@@ -28,6 +31,7 @@
     "title": "Deploy to Production",
     "description": "Set up CI/CD pipeline and deploy the application",
     "completed": false,
+    "listId": "2",
     "createdAt": "2024-01-17T11:00:00Z",
     "updatedAt": "2024-01-17T11:00:00Z"
   }
