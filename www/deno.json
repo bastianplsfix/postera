@@ -23,6 +23,7 @@
 	},
 	"nodeModulesDir": "auto",
 	"imports": {
+		"@base-ui-components/react": "npm:@base-ui-components/react@^1.0.0-beta.1",
 		"clsx": "npm:clsx@^2.1.1",
 		"tailwind-merge": "npm:tailwind-merge@^3.3.1",
 		"~/": "./src/",

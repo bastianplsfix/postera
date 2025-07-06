@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+.root {
+    isolation: isolate;
+}
+
 /* Custom minimal styling for structure */
 body {
     @apply text-gray-900 bg-white;
