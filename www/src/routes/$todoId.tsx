@@ -10,7 +10,7 @@ export const Route = createFileRoute("/$todoId")({
 	component: RouteComponent,
 })
 
-import { Button, Input, Textarea } from "~/components/mod.ts"
+import { Button, Input, Label, Textarea } from "~/components/mod.ts"
 
 function RouteComponent() {
 	const { todoId } = Route.useParams()
@@ -74,7 +74,7 @@ function RouteComponent() {
 						? (
 							<div>
 								<div className="form-group">
-									<label>Title</label>
+									<Label>Title</Label>
 									<Input
 										type="text"
 										value={editTitle}
@@ -82,7 +82,7 @@ function RouteComponent() {
 									/>
 								</div>
 								<div className="form-group">
-									<label>Description</label>
+									<Label>Description</Label>
 									<Textarea
 										rows={3}
 										value={editDescription}

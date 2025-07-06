@@ -11,7 +11,7 @@ import {
 	useUpdateTodoMutation,
 } from "~/integrations/query/todos.ts"
 
-import { Button, Input, Textarea } from "~/components/mod.ts"
+import { Button, Input, Label, Textarea } from "~/components/mod.ts"
 
 export const Route = createFileRoute("/")({
 	component: RouteComponent,
@@ -169,7 +169,7 @@ function RouteComponent() {
 						</p>
 						<form onSubmit={handleQuickAddSubmit}>
 							<div className="form-group">
-								<label htmlFor="quickAddTitle">Title</label>
+								<Label htmlFor="quickAddTitle">Title</Label>
 								<Input
 									id="quickAddTitle"
 									type="text"
@@ -180,7 +180,7 @@ function RouteComponent() {
 								/>
 							</div>
 							<div className="form-group">
-								<label htmlFor="quickAddDescription">Description</label>
+								<Label htmlFor="quickAddDescription">Description</Label>
 								<Textarea
 									id="quickAddDescription"
 									placeholder="Enter todo description"

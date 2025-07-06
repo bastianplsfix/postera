@@ -7,7 +7,7 @@ import {
 	useDeleteListMutation,
 	useUpdateListMutation,
 } from "~/integrations/query/lists.ts"
-import { Button, Input, Textarea } from "~/components/mod.ts"
+import { Button, Input, Label, Textarea } from "~/components/mod.ts"
 
 import { getAllTodosQueryOptions } from "~/integrations/query/todos.ts"
 
@@ -186,7 +186,7 @@ function RouteComponent() {
 					<h2>Create New List</h2>
 					<form onSubmit={handleSubmit}>
 						<div className="form-group">
-							<label htmlFor="name">List Name</label>
+							<Label htmlFor="name">List Name</Label>
 							<Input
 								id="name"
 								type="text"
@@ -197,7 +197,7 @@ function RouteComponent() {
 							/>
 						</div>
 						<div className="form-group">
-							<label htmlFor="description">Description</label>
+							<Label htmlFor="description">Description</Label>
 							<Textarea
 								id="description"
 								placeholder="Enter list description"

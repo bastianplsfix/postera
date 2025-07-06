@@ -9,7 +9,7 @@ import {
 	useUpdateTodoMutation,
 } from "~/integrations/query/todos.ts"
 
-import { Button, Input, Textarea } from "~/components/mod.ts"
+import { Button, Input, Label, Textarea } from "~/components/mod.ts"
 
 export const Route = createFileRoute("/list/$listId")({
 	component: RouteComponent,
@@ -217,7 +217,7 @@ function RouteComponent() {
 					<h2>Add New Todo</h2>
 					<form onSubmit={handleSubmit}>
 						<div className="form-group">
-							<label htmlFor="title">Title</label>
+							<Label htmlFor="title">Title</Label>
 							<Input
 								id="title"
 								type="text"
@@ -228,7 +228,7 @@ function RouteComponent() {
 							/>
 						</div>
 						<div className="form-group">
-							<label htmlFor="description">Description</label>
+							<Label htmlFor="description">Description</Label>
 							<Textarea
 								id="description"
 								placeholder="Enter todo description"
