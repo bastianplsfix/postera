@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router"
-import { Link } from "../components/mod.ts"
+import { Dialog, Link } from "~/components/mod.ts"
 
 export const Route = createFileRoute("/about")({
 	component: RouteComponent,
@@ -8,6 +8,7 @@ export const Route = createFileRoute("/about")({
 function RouteComponent() {
 	return (
 		<div>
+			<Dialog />
 			<div className="section">
 				<h1>About Todo Lists</h1>
 				<div className="card">
