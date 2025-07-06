@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router"
+import { Link } from "../components/mod.ts"
 
 export const Route = createFileRoute("/about")({
 	component: RouteComponent,
@@ -41,6 +42,10 @@ function RouteComponent() {
 					<p>
 						Built with modern web technologies including React, TanStack Router,
 						TanStack Query, and Tailwind CSS for basic styling.
+					</p>
+					<p>
+						Created by{" "}
+						<Link external href="https://bastianplsfix.com">bastianplsfix</Link>
 					</p>
 				</div>
 			</div>
