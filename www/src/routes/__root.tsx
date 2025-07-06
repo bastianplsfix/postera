@@ -1,7 +1,7 @@
 import { createRootRoute, Outlet } from "@tanstack/react-router"
 import { Link } from "~/components/mod.ts"
-import { TanStackRouterDevtools } from "@tanstack/react-router-devtools"
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
+// import { TanStackRouterDevtools } from "@tanstack/react-router-devtools"
+// import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 
 export const Route = createRootRoute({
 	component: () => (
@@ -39,8 +39,10 @@ export const Route = createRootRoute({
 			<main className="container">
 				<Outlet />
 			</main>
-			<ReactQueryDevtools buttonPosition="bottom-right" />
-			<TanStackRouterDevtools position="bottom-left" />
+			{
+				/* <ReactQueryDevtools buttonPosition="bottom-right" />
+			<TanStackRouterDevtools position="bottom-left" /> */
+			}
 		</>
 	),
 })
