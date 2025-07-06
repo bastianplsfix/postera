@@ -9,12 +9,18 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root.tsx'
+import { Route as PlaygroundRouteImport } from './routes/playground.tsx'
 import { Route as ListsRouteImport } from './routes/lists.tsx'
 import { Route as AboutRouteImport } from './routes/about.tsx'
 import { Route as TodoIdRouteImport } from './routes/$todoId.tsx'
 import { Route as IndexRouteImport } from './routes/index.tsx'
 import { Route as ListListIdRouteImport } from './routes/list.$listId.tsx'
 
+const PlaygroundRoute = PlaygroundRouteImport.update({
+  id: '/playground',
+  path: '/playground',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ListsRoute = ListsRouteImport.update({
   id: '/lists',
   path: '/lists',
@@ -46,6 +52,7 @@ export interface FileRoutesByFullPath {
   '/$todoId': typeof TodoIdRoute
   '/about': typeof AboutRoute
   '/lists': typeof ListsRoute
+  '/playground': typeof PlaygroundRoute
   '/list/$listId': typeof ListListIdRoute
 }
 export interface FileRoutesByTo {
@@ -53,6 +60,7 @@ export interface FileRoutesByTo {
   '/$todoId': typeof TodoIdRoute
   '/about': typeof AboutRoute
   '/lists': typeof ListsRoute
+  '/playground': typeof PlaygroundRoute
   '/list/$listId': typeof ListListIdRoute
 }
 export interface FileRoutesById {
@@ -61,14 +69,28 @@ export interface FileRoutesById {
   '/$todoId': typeof TodoIdRoute
   '/about': typeof AboutRoute
   '/lists': typeof ListsRoute
+  '/playground': typeof PlaygroundRoute
   '/list/$listId': typeof ListListIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/$todoId' | '/about' | '/lists' | '/list/$listId'
+  fullPaths:
+    | '/'
+    | '/$todoId'
+    | '/about'
+    | '/lists'
+    | '/playground'
+    | '/list/$listId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/$todoId' | '/about' | '/lists' | '/list/$listId'
-  id: '__root__' | '/' | '/$todoId' | '/about' | '/lists' | '/list/$listId'
+  to: '/' | '/$todoId' | '/about' | '/lists' | '/playground' | '/list/$listId'
+  id:
+    | '__root__'
+    | '/'
+    | '/$todoId'
+    | '/about'
+    | '/lists'
+    | '/playground'
+    | '/list/$listId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -76,11 +98,19 @@ export interface RootRouteChildren {
   TodoIdRoute: typeof TodoIdRoute
   AboutRoute: typeof AboutRoute
   ListsRoute: typeof ListsRoute
+  PlaygroundRoute: typeof PlaygroundRoute
   ListListIdRoute: typeof ListListIdRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/playground': {
+      id: '/playground'
+      path: '/playground'
+      fullPath: '/playground'
+      preLoaderRoute: typeof PlaygroundRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/lists': {
       id: '/lists'
       path: '/lists'
@@ -124,6 +154,7 @@ const rootRouteChildren: RootRouteChildren = {
   TodoIdRoute: TodoIdRoute,
   AboutRoute: AboutRoute,
   ListsRoute: ListsRoute,
+  PlaygroundRoute: PlaygroundRoute,
   ListListIdRoute: ListListIdRoute,
 }
 export const routeTree = rootRouteImport
