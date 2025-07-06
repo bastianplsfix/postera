@@ -1,4 +1,5 @@
-import { createRootRoute, Link, Outlet } from "@tanstack/react-router"
+import { createRootRoute, Outlet } from "@tanstack/react-router"
+import { Link } from "~/components/mod.ts"
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools"
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 
@@ -12,18 +13,21 @@ export const Route = createRootRoute({
 						<nav className="nav-links">
 							<Link
 								to="/"
+								variant="default"
 								className="[&.active]:font-semibold"
 							>
 								All Todos
 							</Link>
 							<Link
 								to="/lists"
+								variant="primary"
 								className="[&.active]:font-semibold"
 							>
 								Manage Lists
 							</Link>
 							<Link
 								to="/about"
+								variant="primary"
 								className="[&.active]:font-semibold"
 							>
 								About

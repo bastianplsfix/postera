@@ -1,5 +1,5 @@
 import React from "react"
-import { createFileRoute, Link } from "@tanstack/react-router"
+import { createFileRoute } from "@tanstack/react-router"
 import { useQuery } from "@tanstack/react-query"
 import {
 	getOneTodoQueryOptions,
@@ -10,7 +10,7 @@ export const Route = createFileRoute("/$todoId")({
 	component: RouteComponent,
 })
 
-import { Button, Input, Label, Textarea } from "~/components/mod.ts"
+import { Button, Input, Label, Link, Textarea } from "~/components/mod.ts"
 
 function RouteComponent() {
 	const { todoId } = Route.useParams()

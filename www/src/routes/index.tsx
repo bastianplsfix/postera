@@ -1,5 +1,5 @@
 import React, { useEffect } from "react"
-import { createFileRoute, Link } from "@tanstack/react-router"
+import { createFileRoute } from "@tanstack/react-router"
 import { useQuery } from "@tanstack/react-query"
 
 import { getAllListsQueryOptions } from "~/integrations/query/lists.ts"
@@ -11,7 +11,7 @@ import {
 	useUpdateTodoMutation,
 } from "~/integrations/query/todos.ts"
 
-import { Button, Input, Label, Textarea } from "~/components/mod.ts"
+import { Button, Input, Label, Link, Textarea } from "~/components/mod.ts"
 
 export const Route = createFileRoute("/")({
 	component: RouteComponent,
