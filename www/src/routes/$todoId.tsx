@@ -10,8 +10,7 @@ export const Route = createFileRoute("/$todoId")({
 	component: RouteComponent,
 })
 
-import { Input } from "~/components/input.tsx"
-import { Textarea } from "~/components/textarea.tsx"
+import { Input, Textarea } from "~/components/mod.ts"
 
 function RouteComponent() {
 	const { todoId } = Route.useParams()

@@ -7,8 +7,7 @@ import {
 	useDeleteListMutation,
 	useUpdateListMutation,
 } from "~/integrations/query/lists.ts"
-import { Input } from "~/components/input.tsx"
-import { Textarea } from "~/components/textarea.tsx"
+import { Input, Textarea } from "~/components/mod.ts"
 
 import { getAllTodosQueryOptions } from "~/integrations/query/todos.ts"
 

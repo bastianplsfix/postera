@@ -11,8 +11,7 @@ import {
 	useUpdateTodoMutation,
 } from "~/integrations/query/todos.ts"
 
-import { Input } from "~/components/input.tsx"
-import { Textarea } from "~/components/textarea.tsx"
+import { Input, Textarea } from "~/components/mod.ts"
 
 export const Route = createFileRoute("/")({
 	component: RouteComponent,
