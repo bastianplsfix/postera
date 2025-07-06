@@ -10,6 +10,8 @@ export const Route = createFileRoute("/$todoId")({
 	component: RouteComponent,
 })
 
+import { Input } from "~/components/input.tsx"
+
 function RouteComponent() {
 	const { todoId } = Route.useParams()
 	const [isEditing, setIsEditing] = React.useState(false)
@@ -73,7 +75,7 @@ function RouteComponent() {
 							<div>
 								<div className="form-group">
 									<label>Title</label>
-									<input
+									<Input
 										type="text"
 										value={editTitle}
 										onChange={(e) => setEditTitle(e.target.value)}

@@ -2,13 +2,14 @@ import React from "react"
 import { createFileRoute, Link } from "@tanstack/react-router"
 import { useQuery } from "@tanstack/react-query"
 import { getOneListQueryOptions } from "~/integrations/query/lists.ts"
-
 import {
 	getAllTodosQueryOptions,
 	useCreateTodoMutation,
 	useDeleteTodoMutation,
 	useUpdateTodoMutation,
 } from "~/integrations/query/todos.ts"
+
+import { Input } from "~/components/input.tsx"
 
 export const Route = createFileRoute("/list/$listId")({
 	component: RouteComponent,
@@ -125,7 +126,7 @@ function RouteComponent() {
 							{editingTodo === todo.id
 								? (
 									<div>
-										<input
+										<Input
 											type="text"
 											value={editTitle}
 											onChange={(e) => setEditTitle(e.target.value)}
@@ -222,7 +223,7 @@ function RouteComponent() {
 					<form onSubmit={handleSubmit}>
 						<div className="form-group">
 							<label htmlFor="title">Title</label>
-							<input
+							<Input
 								id="title"
 								type="text"
 								placeholder="Enter todo title"

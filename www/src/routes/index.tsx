@@ -11,6 +11,8 @@ import {
 	useUpdateTodoMutation,
 } from "~/integrations/query/todos.ts"
 
+import { Input } from "~/components/input.tsx"
+
 export const Route = createFileRoute("/")({
 	component: RouteComponent,
 })
@@ -168,7 +170,7 @@ function RouteComponent() {
 						<form onSubmit={handleQuickAddSubmit}>
 							<div className="form-group">
 								<label htmlFor="quickAddTitle">Title</label>
-								<input
+								<Input
 									id="quickAddTitle"
 									type="text"
 									placeholder="Enter todo title"
@@ -252,7 +254,7 @@ function RouteComponent() {
 											{editingTodo === todo.id
 												? (
 													<div>
-														<input
+														<Input
 															type="text"
 															value={editTitle}
 															onChange={(e) => setEditTitle(e.target.value)}
@@ -353,7 +355,7 @@ function RouteComponent() {
 									<h3>Add Todo to {list.name}</h3>
 									<form onSubmit={(e) => handleListAddSubmit(e, list.id)}>
 										<div className="form-group">
-											<input
+											<Input
 												type="text"
 												placeholder="Enter todo title"
 												value={listInput.title}

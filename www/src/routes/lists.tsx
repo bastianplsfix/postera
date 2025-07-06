@@ -7,6 +7,7 @@ import {
 	useDeleteListMutation,
 	useUpdateListMutation,
 } from "~/integrations/query/lists.ts"
+import { Input } from "~/components/input.tsx"
 
 import { getAllTodosQueryOptions } from "~/integrations/query/todos.ts"
 
@@ -113,7 +114,7 @@ function RouteComponent() {
 							{editingList === list.id
 								? (
 									<div>
-										<input
+										<Input
 											type="text"
 											value={editName}
 											onChange={(e) => setEditName(e.target.value)}
@@ -190,7 +191,7 @@ function RouteComponent() {
 					<form onSubmit={handleSubmit}>
 						<div className="form-group">
 							<label htmlFor="name">List Name</label>
-							<input
+							<Input
 								id="name"
 								type="text"
 								placeholder="Enter list name"
