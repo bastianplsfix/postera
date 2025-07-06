@@ -8,6 +8,7 @@ import {
 	useUpdateListMutation,
 } from "~/integrations/query/lists.ts"
 import { Input } from "~/components/input.tsx"
+import { Textarea } from "~/components/textarea.tsx"
 
 import { getAllTodosQueryOptions } from "~/integrations/query/todos.ts"
 
@@ -121,7 +122,7 @@ function RouteComponent() {
 											placeholder="List name"
 											className="mb-2"
 										/>
-										<textarea
+										<Textarea
 											value={editDescription}
 											onChange={(e) => setEditDescription(e.target.value)}
 											placeholder="List description"
@@ -202,7 +203,7 @@ function RouteComponent() {
 						</div>
 						<div className="form-group">
 							<label htmlFor="description">Description</label>
-							<textarea
+							<Textarea
 								id="description"
 								placeholder="Enter list description"
 								value={description}

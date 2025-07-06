@@ -12,6 +12,7 @@ import {
 } from "~/integrations/query/todos.ts"
 
 import { Input } from "~/components/input.tsx"
+import { Textarea } from "~/components/textarea.tsx"
 
 export const Route = createFileRoute("/")({
 	component: RouteComponent,
@@ -181,7 +182,7 @@ function RouteComponent() {
 							</div>
 							<div className="form-group">
 								<label htmlFor="quickAddDescription">Description</label>
-								<textarea
+								<Textarea
 									id="quickAddDescription"
 									placeholder="Enter todo description"
 									value={quickAddDescription}
@@ -261,7 +262,7 @@ function RouteComponent() {
 															placeholder="Todo title"
 															className="mb-2"
 														/>
-														<textarea
+														<Textarea
 															value={editDescription}
 															onChange={(e) =>
 																setEditDescription(e.target.value)}
@@ -365,7 +366,7 @@ function RouteComponent() {
 											/>
 										</div>
 										<div className="form-group">
-											<textarea
+											<Textarea
 												placeholder="Enter todo description"
 												value={listInput.description}
 												onChange={(e) =>

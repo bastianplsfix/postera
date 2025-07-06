@@ -11,6 +11,7 @@ export const Route = createFileRoute("/$todoId")({
 })
 
 import { Input } from "~/components/input.tsx"
+import { Textarea } from "~/components/textarea.tsx"
 
 function RouteComponent() {
 	const { todoId } = Route.useParams()
@@ -83,7 +84,7 @@ function RouteComponent() {
 								</div>
 								<div className="form-group">
 									<label>Description</label>
-									<textarea
+									<Textarea
 										rows={3}
 										value={editDescription}
 										onChange={(e) => setEditDescription(e.target.value)}
