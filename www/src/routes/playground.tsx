@@ -9,10 +9,11 @@ export const Route = createFileRoute("/playground")({
 
 function RouteComponent() {
 	const [open, setOpen] = React.useState(false)
+	const blueDivRef = React.useRef<HTMLDivElement>(null)
 
 	return (
 		<div>
-			Hello World
+			<div>has scrolled</div>
 
 			<Dialog.Root open={open} onOpenChange={setOpen}>
 				<Dialog.Trigger>Open</Dialog.Trigger>
@@ -24,9 +25,17 @@ function RouteComponent() {
 						>
 							<div className="relative top-4/5 w-full max-h-[90%] w-full h-full p-2">
 								<div
-									className="bg-blue-400 w-full h-full rounded-lg p-6 shadow-top"
-									onClick={(e) => e.stopPropagation()}
-								>¯
+									ref={blueDivRef}
+									className="bg-blue-400 w-full h-full rounded-lg p-6 shadow-top overflow-y-auto"
+									onClick={(e) => {
+										e.stopPropagation()
+										blueDivRef.current?.scrollIntoView({
+											behavior: "smooth",
+											block: "end",
+										})
+									}}
+								>
+									¯
 									<Dialog.Title>Example dialog</Dialog.Title>
 									<Dialog.Close>Close</Dialog.Close>
 									The gentle hum of the city faded as dusk settled over the
