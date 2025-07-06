@@ -7,7 +7,7 @@ import {
 	useDeleteListMutation,
 	useUpdateListMutation,
 } from "~/integrations/query/lists.ts"
-import { Input, Textarea } from "~/components/mod.ts"
+import { Button, Input, Textarea } from "~/components/mod.ts"
 
 import { getAllTodosQueryOptions } from "~/integrations/query/todos.ts"
 
@@ -129,19 +129,17 @@ function RouteComponent() {
 											className="mb-2"
 										/>
 										<div className="button-group">
-											<button
-												type="button"
+											<Button
 												onClick={() => handleEditSubmit(list.id)}
 												disabled={!editName?.trim() || !editDescription?.trim()}
 											>
 												Save
-											</button>
-											<button
-												type="button"
+											</Button>
+											<Button
 												onClick={handleCancelEdit}
 											>
 												Cancel
-											</button>
+											</Button>
 										</div>
 									</div>
 								)
@@ -164,19 +162,17 @@ function RouteComponent() {
 											</Link>
 										</div>
 										<div className="button-group ml-4">
-											<button
-												type="button"
+											<Button
 												onClick={() =>
 													handleEditClick(list.id, list.name, list.description)}
 											>
 												Edit
-											</button>
-											<button
-												type="button"
+											</Button>
+											<Button
 												onClick={() => handleDeleteClick(list.id)}
 											>
 												Delete
-											</button>
+											</Button>
 										</div>
 									</div>
 								)}
@@ -211,13 +207,13 @@ function RouteComponent() {
 								required
 							/>
 						</div>
-						<button
+						<Button
 							type="submit"
 							disabled={createListMutation.isPending || !name?.trim() ||
 								!description?.trim()}
 						>
 							{createListMutation.isPending ? "Creating..." : "Create List"}
-						</button>
+						</Button>
 					</form>
 				</div>
 			</div>

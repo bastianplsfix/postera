@@ -9,7 +9,7 @@ import {
 	useUpdateTodoMutation,
 } from "~/integrations/query/todos.ts"
 
-import { Input, Textarea } from "~/components/mod.ts"
+import { Button, Input, Textarea } from "~/components/mod.ts"
 
 export const Route = createFileRoute("/list/$listId")({
 	component: RouteComponent,
@@ -141,20 +141,18 @@ function RouteComponent() {
 											className="mb-2"
 										/>
 										<div className="button-group">
-											<button
-												type="button"
+											<Button
 												onClick={() => handleEditSubmit(todo.id)}
 												disabled={!editTitle?.trim() ||
 													!editDescription?.trim()}
 											>
 												Save
-											</button>
-											<button
-												type="button"
+											</Button>
+											<Button
 												onClick={handleCancelEdit}
 											>
 												Cancel
-											</button>
+											</Button>
 										</div>
 									</div>
 								)
@@ -177,15 +175,13 @@ function RouteComponent() {
 											</Link>
 										</div>
 										<div className="button-group ml-4">
-											<button
-												type="button"
+											<Button
 												onClick={() =>
 													handleCompleteToggle(todo.id, todo.completed)}
 											>
 												{todo.completed ? "Undo" : "Complete"}
-											</button>
-											<button
-												type="button"
+											</Button>
+											<Button
 												onClick={() =>
 													handleEditClick(
 														todo.id,
@@ -194,13 +190,12 @@ function RouteComponent() {
 													)}
 											>
 												Edit
-											</button>
-											<button
-												type="button"
+											</Button>
+											<Button
 												onClick={() => handleDeleteClick(todo.id)}
 											>
 												Delete
-											</button>
+											</Button>
 										</div>
 									</div>
 								)}
@@ -243,13 +238,12 @@ function RouteComponent() {
 								required
 							/>
 						</div>
-						<button
-							type="submit"
+						<Button
 							disabled={createTodoMutation.isPending || !title?.trim() ||
 								!description?.trim()}
 						>
 							{createTodoMutation.isPending ? "Creating..." : "Add Todo"}
-						</button>
+						</Button>
 					</form>
 				</div>
 			</div>

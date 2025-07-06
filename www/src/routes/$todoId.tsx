@@ -10,7 +10,7 @@ export const Route = createFileRoute("/$todoId")({
 	component: RouteComponent,
 })
 
-import { Input, Textarea } from "~/components/mod.ts"
+import { Button, Input, Textarea } from "~/components/mod.ts"
 
 function RouteComponent() {
 	const { todoId } = Route.useParams()
@@ -90,20 +90,18 @@ function RouteComponent() {
 									/>
 								</div>
 								<div className="button-group">
-									<button
-										type="button"
+									<Button
 										onClick={handleEditSubmit}
 										disabled={!editTitle?.trim() || !editDescription?.trim() ||
 											updateTodoMutation.isPending}
 									>
 										{updateTodoMutation.isPending ? "Saving..." : "Save"}
-									</button>
-									<button
-										type="button"
+									</Button>
+									<Button
 										onClick={handleCancelEdit}
 									>
 										Cancel
-									</button>
+									</Button>
 								</div>
 							</div>
 						)
@@ -132,8 +130,7 @@ function RouteComponent() {
 								</div>
 
 								<div className="button-group">
-									<button
-										type="button"
+									<Button
 										onClick={handleCompleteToggle}
 										disabled={updateTodoMutation.isPending}
 									>
@@ -142,13 +139,12 @@ function RouteComponent() {
 											: data.completed
 											? "Mark as Pending"
 											: "Mark as Complete"}
-									</button>
-									<button
-										type="button"
+									</Button>
+									<Button
 										onClick={handleEditClick}
 									>
 										Edit
-									</button>
+									</Button>
 								</div>
 							</div>
 						)}
