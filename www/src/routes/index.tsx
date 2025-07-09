@@ -84,7 +84,7 @@ function RouteComponent() {
 
 	return (
 		<div>
-			<Checkbox initialChecked />
+			<Checkbox />
 			<div className="section">
 				<h1>Todo List</h1>
 				<p className="text-gray-600">

@@ -8,19 +8,8 @@ export function Checkbox({
 	label?: string
 	initialChecked?: boolean
 }) {
-	const [paused, setPaused] = React.useState(false)
 	const [checked, setChecked] = React.useState(initialChecked)
 	const x = useSpring(0, { stiffness: 300, damping: 30 })
-
-	useInterval(
-		() => {
-			if (!paused) {
-				setChecked((c) => !c)
-			}
-		},
-		1500,
-		[paused],
-	)
 
 	React.useEffect(() => {
 		const ids: number[] = []
@@ -46,11 +35,7 @@ export function Checkbox({
 	}, [checked])
 
 	return (
-		<div
-			className="w-full h-full flex-center"
-			onMouseEnter={() => setPaused(true)}
-			onMouseLeave={() => setPaused(false)}
-		>
+		<div className="w-full h-full flex-center">
 			<div className="flex items-center gap-3 transition-[background] ease-in-out duration-150 hover:bg-gray4 p-2 rounded-8 relative">
 				<div className="checkbox" data-checked={checked}>
 					<svg
@@ -85,24 +70,4 @@ export function Checkbox({
 			</div>
 		</div>
 	)
-}
-
-function useInterval(
-	callback: () => void,
-	delay: number,
-	deps: unknown[] = [],
-) {
-	useEffect(() => {
-		if (!delay) {
-			return
-		}
-
-		const id = setInterval(() => {
-			callback()
-		}, delay)
-
-		return () => {
-			clearInterval(id)
-		}
-	}, [callback, delay, ...deps])
 }
