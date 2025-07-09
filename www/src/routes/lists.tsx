@@ -8,6 +8,7 @@ import {
 	useUpdateListMutation,
 } from "~/integrations/query/lists.ts"
 import { Input } from "~/components/input.tsx"
+import { Checkbox } from "~/components/checkbox.tsx"
 
 import { getAllTodosQueryOptions } from "~/integrations/query/todos.ts"
 

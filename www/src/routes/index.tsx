@@ -12,6 +12,7 @@ import {
 } from "~/integrations/query/todos.ts"
 
 import { Input } from "~/components/input.tsx"
+import { Checkbox } from "~/components/checkbox.tsx"
 
 export const Route = createFileRoute("/")({
 	component: RouteComponent,
@@ -291,34 +292,28 @@ function RouteComponent() {
 													<div>
 														<div className="flex justify-between items-start">
 															<div className="flex-1">
+																<div className="mb-2">
+																	<Checkbox
+																		label={todo.title}
+																		initialChecked={todo.completed}
+																		onChange={(e) =>
+																			handleCompleteToggle(
+																				todo.id,
+																				todo.completed,
+																			)}
+																	/>
+																</div>
 																<Link
 																	to="/$todoId"
 																	params={{ todoId: todo.id }}
-																	className="block hover:underline"
+																	className="block hover:underline ml-8"
 																>
-																	<div
-																		className={todo.completed
-																			? "completed"
-																			: ""}
-																	>
-																		<h3 className="mb-1">{todo.title}</h3>
-																		<p className="text-gray-600 text-sm">
-																			{todo.description}
-																		</p>
-																	</div>
+																	<p className="text-gray-600 text-sm">
+																		{todo.description}
+																	</p>
 																</Link>
 															</div>
 															<div className="button-group ml-4">
-																<button
-																	type="button"
-																	onClick={() =>
-																		handleCompleteToggle(
-																			todo.id,
-																			todo.completed,
-																		)}
-																>
-																	{todo.completed ? "Undo" : "Complete"}
-																</button>
 																<button
 																	type="button"
 																	onClick={() =>
