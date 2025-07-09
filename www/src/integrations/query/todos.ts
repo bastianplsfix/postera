@@ -6,12 +6,11 @@ import {
 import type { Todo } from "~/types/mod.ts"
 import { queryKeys } from "./query-keys.ts"
 
-export const getAllTodosQueryOptions = (listId?: string) =>
+export const getAllTodosQueryOptions = () =>
 	queryOptions({
-		queryKey: queryKeys.getAllTodos(listId),
+		queryKey: queryKeys.getAllTodos(),
 		queryFn: async (): Promise<Todo[]> => {
-			const url = listId ? `/todos?listId=${listId}` : "/todos"
-			const response = await fetch(url)
+			const response = await fetch("/todos")
 			if (!response.ok) throw new Error("Failed to fetch todos")
 			return response.json()
 		},
@@ -32,7 +31,7 @@ export const useCreateTodoMutation = () => {
 
 	return useMutation({
 		mutationFn: async (
-			todoData: { title: string; description: string; listId: string },
+			todoData: { title: string; description: string },
 		): Promise<Todo> => {
 			const requestData = {
 				...todoData,
@@ -50,11 +49,8 @@ export const useCreateTodoMutation = () => {
 			if (!response.ok) throw new Error("Failed to create todo")
 			return response.json()
 		},
-		onSuccess: (newTodo) => {
-			// Invalidate and refetch todos list for the specific list
-			queryClient.invalidateQueries({
-				queryKey: queryKeys.getAllTodos(newTodo.listId),
-			})
+		onSuccess: () => {
+			// Invalidate and refetch todos list
 			queryClient.invalidateQueries({ queryKey: queryKeys.getAllTodos() })
 		},
 	})
@@ -78,11 +74,8 @@ export const useUpdateTodoMutation = () => {
 			if (!response.ok) throw new Error("Failed to update todo")
 			return response.json()
 		},
-		onSuccess: (updatedTodo) => {
+		onSuccess: () => {
 			// Invalidate and refetch todos list
-			queryClient.invalidateQueries({
-				queryKey: queryKeys.getAllTodos(updatedTodo.listId),
-			})
 			queryClient.invalidateQueries({ queryKey: queryKeys.getAllTodos() })
 		},
 	})

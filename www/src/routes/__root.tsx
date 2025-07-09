@@ -8,19 +8,13 @@ export const Route = createRootRoute({
 			<header className="border-b border-gray-200">
 				<div className="container">
 					<div className="flex justify-between items-center py-4">
-						<h1 className="text-xl font-semibold">Todo Lists</h1>
+						<h1 className="text-xl font-semibold">Todo App</h1>
 						<nav className="nav-links">
 							<Link
 								to="/"
 								className="[&.active]:font-semibold"
 							>
-								All Todos
-							</Link>
-							<Link
-								to="/lists"
-								className="[&.active]:font-semibold"
-							>
-								Manage Lists
+								Todos
 							</Link>
 							<Link
 								to="/about"

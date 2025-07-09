@@ -1,19 +1,11 @@
 import { http, HttpResponse } from "msw"
 import type { Todo } from "~/types/mod.ts"
-import { todoListsDB, todosDB } from "../db.ts"
+import { todosDB } from "../db.ts"
 
 export const todoHandlers = [
 	// Todos endpoints
-	http.get("/todos", ({ request }) => {
-		const url = new URL(request.url)
-		const listId = url.searchParams.get("listId")
-
-		let todos = Array.from(todosDB.values())
-
-		if (listId) {
-			todos = todos.filter((todo) => todo.listId === listId)
-		}
-
+	http.get("/todos", () => {
+		const todos = Array.from(todosDB.values())
 		return HttpResponse.json(todos)
 	}),
 
@@ -33,13 +25,6 @@ export const todoHandlers = [
 			Todo,
 			"id" | "createdAt" | "updatedAt"
 		>
-
-		// Validate that the listId exists
-		if (!todoListsDB.has(todoData.listId)) {
-			return new HttpResponse(JSON.stringify({ error: "List not found" }), {
-				status: 400,
-			})
-		}
 
 		// Generate a new ID (simple incrementing ID for demo)
 		const newId = String(
