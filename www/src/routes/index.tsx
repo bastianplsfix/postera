@@ -10,6 +10,7 @@ import {
 } from "~/integrations/query/todos.ts"
 
 import { Input } from "~/components/input.tsx"
+import { Checkbox } from "../components/checkbox.tsx"
 
 export const Route = createFileRoute("/")({
 	component: RouteComponent,
@@ -83,6 +84,7 @@ function RouteComponent() {
 
 	return (
 		<div>
+			<Checkbox initialChecked />
 			<div className="section">
 				<h1>Todo List</h1>
 				<p className="text-gray-600">
@@ -166,7 +168,7 @@ function RouteComponent() {
 														<input
 															type="checkbox"
 															checked={todo.completed}
-															onChange={(e) =>
+															onChange={() =>
 																handleCompleteToggle(todo.id, todo.completed)}
 															className="rounded"
 														/>
