@@ -17,12 +17,6 @@ export const Route = createRootRoute({
 								All Todos
 							</Link>
 							<Link
-								to="/lists"
-								className="[&.active]:font-semibold"
-							>
-								Manage Lists
-							</Link>
-							<Link
 								to="/about"
 								className="[&.active]:font-semibold"
 							>

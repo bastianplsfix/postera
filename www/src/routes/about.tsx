@@ -8,7 +8,7 @@ function RouteComponent() {
 	return (
 		<div>
 			<div className="section">
-				<h1>About Todo Lists</h1>
+				<h1>About Todo List</h1>
 				<div className="card">
 					<p>
 						A simple, minimalistic todo list application built with React and
@@ -21,11 +21,10 @@ function RouteComponent() {
 				<div className="card">
 					<h2>Features</h2>
 					<ul>
-						<li>Create and manage multiple todo lists</li>
 						<li>Add, edit, and delete todos</li>
 						<li>Mark todos as complete or incomplete</li>
 						<li>View individual todo details</li>
-						<li>Quick add todos to your first list</li>
+						<li>Simple, unified todo list management</li>
 					</ul>
 				</div>
 			</div>
@@ -36,7 +35,8 @@ function RouteComponent() {
 					<p>
 						This application demonstrates clean, functional design with minimal
 						styling. The focus is on usability and structure rather than
-						elaborate visual effects.
+						elaborate visual effects. A single, unified todo list keeps things
+						simple and focused.
 					</p>
 					<p>
 						Built with modern web technologies including React, TanStack Router,
