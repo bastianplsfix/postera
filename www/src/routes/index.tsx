@@ -168,13 +168,7 @@ function RouteComponent() {
 														onChange={(checked) =>
 															handleCompleteToggle(todo.id, !checked)}
 													>
-														<Link
-															to="/$todoId"
-															params={{ todoId: todo.id }}
-															className="hover:underline"
-														>
-															{todo.title}
-														</Link>
+														{todo.title}
 													</Checkbox>
 													<div className="flex gap-2">
 														<button
