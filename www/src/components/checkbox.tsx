@@ -1,9 +1,27 @@
-import React, { useEffect } from "react"
+import React from "react"
 import { motion, useSpring } from "motion/react"
+import { CheckIcon } from "../assets/svg.tsx"
+import { Checkbox as Base } from "@base-ui-components/react/checkbox"
+
+export function ExampleCheckbox() {
+	return (
+		<label className="flex items-center gap-2 text-base text-gray-900">
+			<Base.Root
+				defaultChecked
+				className="flex size-5 items-center justify-center rounded-sm outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-800 data-[checked]:bg-gray-900 data-[unchecked]:border data-[unchecked]:border-gray-300"
+			>
+				<Base.Indicator className="flex text-gray-50 data-[unchecked]:hidden">
+					<CheckIcon className="stroke-2" />
+				</Base.Indicator>
+			</Base.Root>
+			Enable notifications
+		</label>
+	)
+}
 
 export function Checkbox({
 	label = "Buy groceries",
-	initialChecked = false,
+	initialChecked = true,
 }: {
 	label?: string
 	initialChecked?: boolean
@@ -37,19 +55,13 @@ export function Checkbox({
 	return (
 		<div className="w-full h-full flex-center">
 			<div className="flex items-center gap-3 transition-[background] ease-in-out duration-150 hover:bg-gray4 p-2 rounded-8 relative">
-				<div className="checkbox" data-checked={checked}>
-					<svg
-						viewBox="0 0 21 21"
-						strokeWidth="2"
-						strokeLinecap="round"
-						strokeLinejoin="round"
-					>
-						<path d="M5,10.75 L8.5,14.25 L19.4,2.3 C18.8333333,1.43333333 18.0333333,1 17,1 L4,1 C2.35,1 1,2.35 1,4 L1,17 C1,18.65 2.35,20 4,20 L17,20 C18.65,20 20,18.65 20,17 L20,7.99769186" />
-					</svg>
-				</div>
-				<motion.div className="relative" style={{ x }}>
-					<p className="text-16 text-gray12">{label}</p>
-					<motion.div
+				<Base.Root className="checkbox" data-checked={checked}>
+					<CheckIcon className="stroke-2" />
+				</Base.Root>
+				{/* <motion.div className="relative" style={{ x }}> */}
+				<p className="text-16 text-gray12">{label}</p>
+				{
+					/* <motion.div
 						animate={{ width: checked ? "100%" : 0 }}
 						transition={{
 							type: "spring",
@@ -60,7 +72,8 @@ export function Checkbox({
 						}}
 						className="w-full h-[1px] bg-gray12 absolute translate-center-y"
 					/>
-				</motion.div>
+				</motion.div> */
+				}
 				<input
 					type="checkbox"
 					checked={checked}

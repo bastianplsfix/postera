@@ -10,7 +10,7 @@ import {
 } from "~/integrations/query/todos.ts"
 
 import { Input } from "~/components/input.tsx"
-import { Checkbox } from "../components/checkbox.tsx"
+import { Checkbox, ExampleCheckbox } from "../components/checkbox.tsx"
 
 export const Route = createFileRoute("/")({
 	component: RouteComponent,
@@ -85,6 +85,7 @@ function RouteComponent() {
 	return (
 		<div>
 			<Checkbox />
+			<ExampleCheckbox />
 			<div className="section">
 				<h1>Todo List</h1>
 				<p className="text-gray-600">
