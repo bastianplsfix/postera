@@ -1,18 +1,24 @@
 .checkbox {
+    --ts-1: 300ms;
+    --ts-2: 600ms;
+    --size: 20px;
+    --tick: #fff;
+    --border: var(--color-gray6);
+    --active: var(--color-orange);
     position: relative;
     pointer-events: none;
-    width: 20px;
-    height: 20px;
-    border-radius: 8px;
+    width: var(--size);
+    height: var(--size);
+    border-radius: var(--radius-4);
     transition:
-        box-shadow 300ms,
-        background 300ms;
-    box-shadow: inset 0 0 0 2px #6b7280; /* assuming gray6 color */
+        box-shadow var(--ts-1),
+        background var(--ts-1);
+    box-shadow: inset 0 0 0 2px var(--border);
 }
 
 .checkbox svg {
     fill: none;
-    stroke: #f97316; /* assuming orange color */
+    stroke: var(--active);
     position: absolute;
     top: 0;
     left: 0;
@@ -21,13 +27,13 @@
     stroke-dasharray: 86.12;
     stroke-dashoffset: 86.12;
     transition:
-        stroke-dasharray 600ms,
-        stroke-dashoffset 600ms;
+        stroke-dasharray var(--ts-2),
+        stroke-dashoffset var(--ts-2);
 }
 
 .checkbox[data-checked="true"] {
-    background: #f97316; /* assuming orange color */
-    box-shadow: inset 0 0 0 2px #f97316; /* assuming orange color */
+    background: var(--active);
+    box-shadow: inset 0 0 0 2px var(--active);
     transition-delay: 0.4s;
 }
 
@@ -35,17 +41,17 @@
     stroke-dasharray: 16 86.12;
     stroke-dashoffset: 102.22;
     animation-name: fill;
-    animation-delay: 300ms;
+    animation-delay: var(--ts-1);
     animation-fill-mode: forwards;
     animation-timing-function: ease;
-    animation-duration: 600ms;
+    animation-duration: var(--ts-2);
 }
 
 @keyframes fill {
     0% {
-        stroke: #f97316; /* assuming orange color */
+        stroke: var(--active);
     }
     100% {
-        stroke: #fff;
+        stroke: var(--tick);
     }
 }
