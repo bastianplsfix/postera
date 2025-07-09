@@ -22,9 +22,9 @@ function RouteComponent() {
 					<h2>Features</h2>
 					<ul>
 						<li>Add, edit, and delete todos</li>
-						<li>Mark todos as complete or incomplete</li>
+						<li>Mark todos complete with checkboxes</li>
 						<li>View individual todo details</li>
-						<li>Simple, unified todo list management</li>
+						<li>Simple, clean checkbox-based interface</li>
 					</ul>
 				</div>
 			</div>
@@ -35,8 +35,8 @@ function RouteComponent() {
 					<p>
 						This application demonstrates clean, functional design with minimal
 						styling. The focus is on usability and structure rather than
-						elaborate visual effects. A single, unified todo list keeps things
-						simple and focused.
+						elaborate visual effects. A simple checkbox-based interface keeps
+						things intuitive and focused.
 					</p>
 					<p>
 						Built with modern web technologies including React, TanStack Router,

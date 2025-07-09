@@ -10,6 +10,7 @@ import {
 } from "~/integrations/query/todos.ts"
 
 import { Input } from "~/components/input.tsx"
+import { Checkbox } from "~/components/checkbox.tsx"
 
 export const Route = createFileRoute("/")({
 	component: RouteComponent,
@@ -17,10 +18,8 @@ export const Route = createFileRoute("/")({
 
 function RouteComponent() {
 	const [newTitle, setNewTitle] = React.useState("")
-	const [newDescription, setNewDescription] = React.useState("")
 	const [editingTodo, setEditingTodo] = React.useState<string | null>(null)
 	const [editTitle, setEditTitle] = React.useState("")
-	const [editDescription, setEditDescription] = React.useState("")
 
 	const { data: todos, isPending, isError } = useQuery(
 		getAllTodosQueryOptions(),
@@ -31,13 +30,11 @@ function RouteComponent() {
 
 	const handleAddSubmit = (e: React.FormEvent) => {
 		e.preventDefault()
-		if (newTitle?.trim() && newDescription?.trim()) {
+		if (newTitle?.trim()) {
 			createTodoMutation.mutate({
 				title: newTitle,
-				description: newDescription,
 			})
 			setNewTitle("")
-			setNewDescription("")
 		}
 	}
 
@@ -58,32 +55,25 @@ function RouteComponent() {
 		})
 	}
 
-	const handleEditClick = (
-		todoId: string,
-		currentTitle: string,
-		currentDescription: string,
-	) => {
+	const handleEditClick = (todoId: string, currentTitle: string) => {
 		setEditingTodo(todoId)
 		setEditTitle(currentTitle)
-		setEditDescription(currentDescription)
 	}
 
 	const handleEditSubmit = (todoId: string) => {
-		if (editTitle?.trim() && editDescription?.trim()) {
+		if (editTitle?.trim()) {
 			updateTodoMutation.mutate({
 				todoId,
-				updates: { title: editTitle, description: editDescription },
+				updates: { title: editTitle },
 			})
 			setEditingTodo(null)
 			setEditTitle("")
-			setEditDescription("")
 		}
 	}
 
 	const handleCancelEdit = () => {
 		setEditingTodo(null)
 		setEditTitle("")
-		setEditDescription("")
 	}
 
 	const completedTodos = todos?.filter((todo) => todo.completed) || []
@@ -109,7 +99,7 @@ function RouteComponent() {
 					<h2>Add New Todo</h2>
 					<form onSubmit={handleAddSubmit}>
 						<div className="form-group">
-							<label htmlFor="newTitle">Title</label>
+							<label htmlFor="newTitle">Todo</label>
 							<Input
 								id="newTitle"
 								type="text"
@@ -119,22 +109,9 @@ function RouteComponent() {
 								required
 							/>
 						</div>
-						<div className="form-group">
-							<label htmlFor="newDescription">Description</label>
-							<textarea
-								id="newDescription"
-								placeholder="Enter todo description"
-								value={newDescription}
-								onChange={(e) => setNewDescription(e.target.value)}
-								rows={3}
-								required
-							/>
-						</div>
 						<button
 							type="submit"
-							disabled={createTodoMutation.isPending ||
-								!newTitle?.trim() ||
-								!newDescription?.trim()}
+							disabled={createTodoMutation.isPending || !newTitle?.trim()}
 						>
 							{createTodoMutation.isPending ? "Adding..." : "Add Todo"}
 						</button>
@@ -149,41 +126,35 @@ function RouteComponent() {
 
 					{todos && todos.length > 0
 						? (
-							<div>
+							<div className="space-y-2">
 								{todos.map((todo) => (
 									<div
 										key={todo.id}
-										className="border-b border-gray-100 pb-4 mb-4 last:border-b-0"
+										className="flex items-center justify-between p-2 border border-gray-200 rounded-lg hover:bg-gray-50"
 									>
 										{editingTodo === todo.id
 											? (
-												<div>
+												<div className="flex-1 flex items-center gap-2">
 													<Input
 														type="text"
 														value={editTitle}
 														onChange={(e) => setEditTitle(e.target.value)}
 														placeholder="Todo title"
-														className="mb-2"
+														className="flex-1"
 													/>
-													<textarea
-														value={editDescription}
-														onChange={(e) => setEditDescription(e.target.value)}
-														placeholder="Todo description"
-														rows={2}
-														className="mb-2"
-													/>
-													<div className="button-group">
+													<div className="flex gap-2">
 														<button
 															type="button"
 															onClick={() => handleEditSubmit(todo.id)}
-															disabled={!editTitle?.trim() ||
-																!editDescription?.trim()}
+															disabled={!editTitle?.trim()}
+															className="px-3 py-1 bg-blue-500 text-white rounded text-sm hover:bg-blue-600 disabled:opacity-50"
 														>
 															Save
 														</button>
 														<button
 															type="button"
 															onClick={handleCancelEdit}
+															className="px-3 py-1 bg-gray-500 text-white rounded text-sm hover:bg-gray-600"
 														>
 															Cancel
 														</button>
@@ -191,59 +162,36 @@ function RouteComponent() {
 												</div>
 											)
 											: (
-												<div>
-													<div className="flex justify-between items-start">
-														<div className="flex-1">
-															<Link
-																to="/$todoId"
-																params={{ todoId: todo.id }}
-																className="block hover:underline"
-															>
-																<div
-																	className={todo.completed ? "completed" : ""}
-																>
-																	<h3 className="mb-1">{todo.title}</h3>
-																	<p className="text-gray-600 text-sm">
-																		{todo.description}
-																	</p>
-																</div>
-															</Link>
-															<div className="text-xs text-gray-500 mt-2">
-																Created:{" "}
-																{new Date(todo.createdAt).toLocaleDateString()}
-																{todo.completed && (
-																	<span className="ml-2">
-																		• Completed
-																	</span>
-																)}
-															</div>
-														</div>
-														<div className="button-group ml-4">
-															<button
-																type="button"
-																onClick={() =>
-																	handleCompleteToggle(todo.id, todo.completed)}
-															>
-																{todo.completed ? "Undo" : "Complete"}
-															</button>
-															<button
-																type="button"
-																onClick={() =>
-																	handleEditClick(
-																		todo.id,
-																		todo.title,
-																		todo.description,
-																	)}
-															>
-																Edit
-															</button>
-															<button
-																type="button"
-																onClick={() => handleDeleteClick(todo.id)}
-															>
-																Delete
-															</button>
-														</div>
+												<div className="flex-1 flex items-center justify-between">
+													<Checkbox
+														checked={todo.completed}
+														onChange={(checked) =>
+															handleCompleteToggle(todo.id, !checked)}
+													>
+														<Link
+															to="/$todoId"
+															params={{ todoId: todo.id }}
+															className="hover:underline"
+														>
+															{todo.title}
+														</Link>
+													</Checkbox>
+													<div className="flex gap-2">
+														<button
+															type="button"
+															onClick={() =>
+																handleEditClick(todo.id, todo.title)}
+															className="px-3 py-1 bg-yellow-500 text-white rounded text-sm hover:bg-yellow-600"
+														>
+															Edit
+														</button>
+														<button
+															type="button"
+															onClick={() => handleDeleteClick(todo.id)}
+															className="px-3 py-1 bg-red-500 text-white rounded text-sm hover:bg-red-600"
+														>
+															Delete
+														</button>
 													</div>
 												</div>
 											)}

@@ -11,23 +11,23 @@ export const Route = createFileRoute("/$todoId")({
 })
 
 import { Input } from "~/components/input.tsx"
+import { Checkbox } from "~/components/checkbox.tsx"
 
 function RouteComponent() {
 	const { todoId } = Route.useParams()
 	const [isEditing, setIsEditing] = React.useState(false)
 	const [editTitle, setEditTitle] = React.useState("")
-	const [editDescription, setEditDescription] = React.useState("")
 
 	const { data, isPending, isError } = useQuery(
 		getOneTodoQueryOptions(todoId),
 	)
 	const updateTodoMutation = useUpdateTodoMutation()
 
-	const handleCompleteToggle = () => {
+	const handleCompleteToggle = (checked: boolean) => {
 		if (data) {
 			updateTodoMutation.mutate({
 				todoId: data.id,
-				updates: { completed: !data.completed },
+				updates: { completed: checked },
 			})
 		}
 	}
@@ -35,16 +35,15 @@ function RouteComponent() {
 	const handleEditClick = () => {
 		if (data) {
 			setEditTitle(data.title)
-			setEditDescription(data.description)
 			setIsEditing(true)
 		}
 	}
 
 	const handleEditSubmit = () => {
-		if (editTitle?.trim() && editDescription?.trim()) {
+		if (editTitle?.trim()) {
 			updateTodoMutation.mutate({
 				todoId: todoId,
-				updates: { title: editTitle, description: editDescription },
+				updates: { title: editTitle },
 			})
 			setIsEditing(false)
 		}
@@ -53,7 +52,6 @@ function RouteComponent() {
 	const handleCancelEdit = () => {
 		setIsEditing(false)
 		setEditTitle("")
-		setEditDescription("")
 	}
 
 	if (isPending) return <div>Loading...</div>
@@ -74,26 +72,19 @@ function RouteComponent() {
 						? (
 							<div>
 								<div className="form-group">
-									<label>Title</label>
+									<label>Todo</label>
 									<Input
 										type="text"
 										value={editTitle}
 										onChange={(e) => setEditTitle(e.target.value)}
-									/>
-								</div>
-								<div className="form-group">
-									<label>Description</label>
-									<textarea
-										rows={3}
-										value={editDescription}
-										onChange={(e) => setEditDescription(e.target.value)}
+										placeholder="Todo title"
 									/>
 								</div>
 								<div className="button-group">
 									<button
 										type="button"
 										onClick={handleEditSubmit}
-										disabled={!editTitle?.trim() || !editDescription?.trim() ||
+										disabled={!editTitle?.trim() ||
 											updateTodoMutation.isPending}
 									>
 										{updateTodoMutation.isPending ? "Saving..." : "Save"}
@@ -109,43 +100,34 @@ function RouteComponent() {
 						)
 						: (
 							<div>
-								<div className="mb-4">
-									<h1 className={data.completed ? "completed" : ""}>
-										{data.title}
-									</h1>
-									<p
-										className={`text-gray-600 ${
-											data.completed ? "completed" : ""
-										}`}
+								<div className="mb-6">
+									<Checkbox
+										checked={data.completed}
+										onChange={handleCompleteToggle}
 									>
-										{data.description}
-									</p>
+										<h1 className="text-xl font-semibold">{data.title}</h1>
+									</Checkbox>
 								</div>
 
-								<div className="flex gap-4 items-center mb-4">
-									<span>
+								<div className="flex gap-4 items-center mb-6">
+									<span className="text-sm text-gray-600">
 										Status: {data.completed ? "Completed" : "Pending"}
 									</span>
 									<span className="text-sm text-gray-500">
 										Created: {new Date(data.createdAt).toLocaleDateString()}
 									</span>
+									{data.updatedAt !== data.createdAt && (
+										<span className="text-sm text-gray-500">
+											Updated: {new Date(data.updatedAt).toLocaleDateString()}
+										</span>
+									)}
 								</div>
 
 								<div className="button-group">
 									<button
 										type="button"
-										onClick={handleCompleteToggle}
-										disabled={updateTodoMutation.isPending}
-									>
-										{updateTodoMutation.isPending
-											? "Updating..."
-											: data.completed
-											? "Mark as Pending"
-											: "Mark as Complete"}
-									</button>
-									<button
-										type="button"
 										onClick={handleEditClick}
+										className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
 									>
 										Edit
 									</button>

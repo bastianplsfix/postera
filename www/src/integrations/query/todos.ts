@@ -31,7 +31,7 @@ export const useCreateTodoMutation = () => {
 
 	return useMutation({
 		mutationFn: async (
-			todoData: { title: string; description: string },
+			todoData: { title: string },
 		): Promise<Todo> => {
 			const requestData = {
 				...todoData,
