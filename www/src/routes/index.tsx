@@ -1,5 +1,5 @@
 import React from "react"
-import { createFileRoute, Link } from "@tanstack/react-router"
+import { createFileRoute } from "@tanstack/react-router"
 import { useQuery } from "@tanstack/react-query"
 
 import {
@@ -10,7 +10,6 @@ import {
 } from "~/integrations/query/todos.ts"
 
 import { Input } from "~/components/input.tsx"
-import { Checkbox } from "~/components/checkbox.tsx"
 
 export const Route = createFileRoute("/")({
 	component: RouteComponent,
@@ -163,13 +162,22 @@ function RouteComponent() {
 											)
 											: (
 												<div className="flex-1 flex items-center justify-between">
-													<Checkbox
-														checked={todo.completed}
-														onChange={(checked) =>
-															handleCompleteToggle(todo.id, !checked)}
-													>
-														{todo.title}
-													</Checkbox>
+													<label className="flex items-center gap-2 cursor-pointer">
+														<input
+															type="checkbox"
+															checked={todo.completed}
+															onChange={(e) =>
+																handleCompleteToggle(todo.id, todo.completed)}
+															className="rounded"
+														/>
+														<span
+															className={todo.completed
+																? "line-through text-gray-500"
+																: ""}
+														>
+															{todo.title}
+														</span>
+													</label>
 													<div className="flex gap-2">
 														<button
 															type="button"

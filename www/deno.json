@@ -24,6 +24,7 @@
 	"nodeModulesDir": "auto",
 	"imports": {
 		"@base-ui-components/react": "npm:@base-ui-components/react@^1.0.0-beta.1",
+		"motion": "npm:motion@^12.23.1",
 		"~/": "./src/",
 		"@deno/vite-plugin": "npm:@deno/vite-plugin@^1.0.5",
 		"@std/assert": "jsr:@std/assert@1",
