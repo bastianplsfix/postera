@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router"
+import { Checkbox } from "../components/checkbox.tsx"
 
 export const Route = createFileRoute("/about")({
 	component: RouteComponent,
@@ -8,6 +9,7 @@ function RouteComponent() {
 	return (
 		<div>
 			<div className="section">
+				<Checkbox />
 				<h1>About Todo List</h1>
 				<div className="card">
 					<p>
