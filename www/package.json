@@ -1,0 +1,8 @@
+{
+  "name": "postera",
+  "type": "module",
+  "version": "0.0.1",
+  "dependencies": {
+    "convex": "^1.25.4"
+  }
+}

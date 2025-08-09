@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root.tsx'
 import { Route as AboutRouteImport } from './routes/about.tsx'
 import { Route as TodoIdRouteImport } from './routes/$todoId.tsx'
 import { Route as IndexRouteImport } from './routes/index.tsx'
+import { Route as OldIndexRouteImport } from './routes/old/index.tsx'
 
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
@@ -28,35 +29,44 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OldIndexRoute = OldIndexRouteImport.update({
+  id: '/old/',
+  path: '/old/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/$todoId': typeof TodoIdRoute
   '/about': typeof AboutRoute
+  '/old': typeof OldIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/$todoId': typeof TodoIdRoute
   '/about': typeof AboutRoute
+  '/old': typeof OldIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/$todoId': typeof TodoIdRoute
   '/about': typeof AboutRoute
+  '/old/': typeof OldIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/$todoId' | '/about'
+  fullPaths: '/' | '/$todoId' | '/about' | '/old'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/$todoId' | '/about'
-  id: '__root__' | '/' | '/$todoId' | '/about'
+  to: '/' | '/$todoId' | '/about' | '/old'
+  id: '__root__' | '/' | '/$todoId' | '/about' | '/old/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   TodoIdRoute: typeof TodoIdRoute
   AboutRoute: typeof AboutRoute
+  OldIndexRoute: typeof OldIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -82,6 +92,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/old/': {
+      id: '/old/'
+      path: '/old'
+      fullPath: '/old'
+      preLoaderRoute: typeof OldIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -89,6 +106,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   TodoIdRoute: TodoIdRoute,
   AboutRoute: AboutRoute,
+  OldIndexRoute: OldIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

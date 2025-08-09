@@ -16,4 +16,7 @@ export default defineConfig({
     tailwindcss(),
     deno(),
   ],
+  define: {
+    'import.meta.env.CONVEX_URL': JSON.stringify(process.env.CONVEX_URL),
+  },
 });
